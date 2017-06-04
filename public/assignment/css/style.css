@@ -14,12 +14,6 @@ a:hover{
     text-decoration: none;
 }
 
-.cl-container-padding-top0 {
-    padding-top: 0;
-    padding-bottom: 10%;
-}
-
-
 .cl-container-padding {
     padding-top: 5%;
     padding-bottom: 10%;
@@ -44,6 +38,11 @@ a:hover{
 .cl-icon-padding {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.cl-icon-padding0 {
+    padding-left: 10px;
+    padding-right: 0px;
 }
 
 .cl-header-padding{
@@ -106,4 +105,25 @@ a:hover{
     width: 85%;
     z-index: 100;
     position: relative;
+}
+
+.scrollbar {
+    overflow: auto;
+    height: 100px;
+}
+
+.verticalLine {
+    border-right: 2px solid gainsboro;
+    top:0;
+    bottom:0;
+    height: 768px;
+}
+
+.vr {
+    width:10px;
+    background-color:#000;
+    position:absolute;
+    top:0;
+    bottom:0;
+    right: 0px;
 }
