@@ -76,7 +76,7 @@
                 controllerAs: "model"
             })
             .otherwise({
-                redirectTo : "/"
+                redirectTo : "/login"
             });
     }
 })();
