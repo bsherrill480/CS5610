@@ -9,7 +9,7 @@ var app = express();
 
 /*var ipaddress = '127.0.0.1';*/
 
-app.use(express.static(__dirname+'/public/assignment'));
+app.use(express.static(__dirname+'/public/assignment/assignment2 backup'));
 
 app.set('port', (process.env.PORT || 5000));
 
