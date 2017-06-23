@@ -1,0 +1,50 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid row">
+
+        <div class="navbar-text pull-left">
+            <a href="page-list.html" class="cl-text-black cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
+            </a>
+        </div>
+        <div class="navbar-text pull-right">
+            <a ng-click="model.createPage(page)" class="cl-icon-padding cl-text-black">
+          <span class="glyphicon glyphicon-ok">
+          </span>
+            </a>
+        </div>
+        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+            New Page
+        </a>
+    </div>
+</nav>
+
+
+<div class="container-fluid cl-container-padding-top0">
+    <form class="cl-form-bottom-padding">
+        <label for="name">Name</label>
+        <input ng-model="page.name"
+               type="text"
+               class="form-control"
+               placeholder="Page Name"
+               id="name" required>
+        <label for="title">Title</label>
+        <input ng-model="page.title"
+               type="text"
+               class="form-control"
+               placeholder="Page Title"
+               id="title" required>
+    </form>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid row">
+        <div class="pull-right navbar-text">
+
+            <a href="profile.html" class="tv-icon-padding">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+
+        </div>
+    </div>
+</nav>
