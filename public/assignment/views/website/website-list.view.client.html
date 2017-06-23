@@ -1,7 +1,7 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
     <div class="container-fluid">
         <p class="navbar-text pull-left">
-            <a href="profile.html" class="navbar-link cl-text-white">
+            <a href="#!/user/{{model.uid}}" class="navbar-link cl-text-white">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
         </p>
@@ -23,10 +23,4 @@
     </ul>
 </div>
 
-<nav class="navbar navbar-fixed-bottom cl-blue-navbar">
-    <div class="container-fuild">
-        <a href="profile.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-            <span class="glyphicon glyphicon-user"></span>
-        </a>
-    </div>
-</nav>
+<div ng-include="'views/common/footer-blue.view.client.html'"></div>
