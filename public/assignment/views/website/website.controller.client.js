@@ -1,48 +1,66 @@
-(function() {
+(function (){
     angular
         .module("WebAppMaker")
-        .controller("WebsiteListController", WebsiteListController)
-        .controller("NewWebsiteController", NewWebsiteController)
-        .controller("EditWebsiteController", EditWebsiteController);
+        .controller("WebsiteListController",WebsiteListController)
+        .controller("EditWebsiteController",EditWebsiteController)
+        .controller("NewWebsiteController",NewWebsiteController);
+
+    // WebsiteListController
 
     function WebsiteListController($routeParams, WebsiteService) {
-        var vm = this;
-        vm.uid = $routeParams.uid;
-        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-    }
+        var model = this;
 
-    function NewWebsiteController($routeParams, $location, WebsiteService) {
-        var vm = this;
-        vm.userId = $routeParams.uid;
-        vm.createWebsite = createWebsite;
+        model.uid = $routeParams['uid'];
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            model.websites = WebsiteService.findWebsitesByUser(model.uid);
         }
+
         init();
-
-        function createWebsite (website) {
-            WebsiteService.createWebsite(vm.userId, website);
-            $location.url("/user/"+vm.userId+"/website");
-        }
     }
 
-    function EditWebsiteController($routeParams, $location, WebsiteService) {
-        var vm = this;
-        vm.userId = $routeParams.uid;
-        vm.websiteId = $routeParams.wid;
-        vm.deleteWebsite = deleteWebsite;
+    // EditWebsiteController
 
-        function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
-            vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+    function EditWebsiteController($routeParams, WebsiteService, $location) {
+        var model = this;
+
+        model.uid = $routeParams['uid'];
+        model.wid = $routeParams['wid'];
+        model.deleteWebsite= deleteWebsite;
+
+        function init(){
+            model.websites = WebsiteService.findWebsitesByUser(model.uid);
+            model.website = WebsiteService.findWebsiteById(model.wid);
         }
         init();
 
         function deleteWebsite () {
-            WebsiteService.deleteWebsite(vm.websiteId);
-            $location.url("/user/"+vm.userId+"/website");
+            WebsiteService.deleteWebsite(model.wid);
+            $location.url("/user/"+model.uid+"/website");
         }
     }
+
+    // NewWebsiteController
+
+    function NewWebsiteController($routeParams, WebsiteService, $location) {
+        var model = this;
+
+        model.uid = $routeParams['uid'];
+        model.createWebsite= createWebsite;
+
+        function init(){
+            model.websites = WebsiteService.findWebsitesByUser(model.uid);
+        }
+        init();
+
+        function createWebsite (website) {
+            website.developerId = model.uid;
+            WebsiteService.createWebsite(website);
+            $location.url("/user/"+model.uid+"/website");
+        }
+
+
+    }
+
 
 })();

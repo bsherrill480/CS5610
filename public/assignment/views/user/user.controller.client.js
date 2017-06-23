@@ -19,7 +19,7 @@
         }
     }
 
-    function RegisterController() {
+    function RegisterController(UserService, $location, $timeout) {
         var vm = this;
         vm.register = register;
 
@@ -57,6 +57,7 @@
     function ProfileController($routeParams, $location, $timeout, UserService) {
         var vm = this;
         vm.user = UserService.findUserById($routeParams.uid);
+        // fetch username from user to user.username in template
         vm.username = vm.user.username;
         vm.firstName = vm.user.firstName;
         vm.lastName = vm.user.lastName;
