@@ -1,15 +1,21 @@
-<nav id="profile_nav_bar" class="navbar navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <p class="navbar-text pull-left">
-                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new" class="navbar-link">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </p>
-            <a class="navbar-brand">
-                Create Image Widget
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid row">
+
+        <div class="navbar-text pull-left">
+            <a href="widget-list.html" class="cl-text-black cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
             </a>
         </div>
+        <div class="navbar-text pull-right">
+            <a href="widget-list.html" class="cl-icon-padding cl-text-black">
+          <span class="glyphicon glyphicon-ok">
+          </span>
+            </a>
+        </div>
+        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+            Widget Edit
+        </a>
     </div>
 </nav>
 <!--Body of the Page-->
@@ -32,9 +38,8 @@
             <label for="widget-youtube-width">Width</label>
             <input  ng-model="model.widgetWidth" type="text" class="form-control" id="widget-youtube-width" placeholder="100%">
         </div>
-        <a ng-click="model.createWidget()" class="btn btn-primary btn-block" id="widget-youtube-create-btn">Create</a>
+            <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block" id="widget-youtube-delete-btn">Delete</a>
     </form>
-    <div ng-show="model.createError" class="alert alert-danger" role="alert">{{model.createError}}</div>
 </div>
 <!--Body of the Page-->
 <nav class="navbar navbar-default navbar-fixed-bottom">

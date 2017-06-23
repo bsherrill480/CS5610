@@ -1,16 +1,21 @@
-<nav id="profile_nav_bar" class="navbar navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <p class="navbar-text pull-left">
-                <a href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new"
-                   class="navbar-link">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </p>
-            <a class="navbar-brand">
-                Create Image Widget
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid row">
+
+        <div class="navbar-text pull-left">
+            <a href="widget-list.html" class="cl-text-black cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
             </a>
         </div>
+        <div class="navbar-text pull-right">
+            <a href="widget-list.html" class="cl-icon-padding cl-text-black">
+          <span class="glyphicon glyphicon-ok">
+          </span>
+            </a>
+        </div>
+        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+            Widget Edit
+        </a>
     </div>
 </nav>
 <!--Body of the Page-->
@@ -41,10 +46,10 @@
             <input type="file" id="widget-image-file-chooser">
             <p class="help-block">Upload the image from your device.</p>
         </div>
-        <a id="widget-image-upload-btn" class="btn btn-primary btn-block">Upload Image</a>
-        <a ng-click="model.createWidget()" class="btn btn-primary btn-block" id="widget-heading-create-btn">Create</a>
+        <a ng-click="model.createWidget()" id="widget-image-upload-btn" class="btn btn-primary btn-block">Upload Image</a>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block" id="widget-heading-Delete-btn">Delete</a>
     </form>
-    <div ng-show="model.createError" class="alert alert-danger" role="alert">{{model.createError}}</div>
+    <!--<div ng-show="model.createError" class="alert alert-danger" role="alert">{{model.createError}}</div>-->
 </div>
 <!--Body of the Page-->
 <nav class="navbar navbar-default navbar-fixed-bottom">

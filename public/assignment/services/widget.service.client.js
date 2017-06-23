@@ -64,7 +64,7 @@
         function createHeaderWidget(widgetId, pageId, widget) {
             return {
                 _id: widgetId,
-                widgetType: 'HEADER',
+                widgetType: 'HEADING',
                 pageId: pageId,
                 size: widget.size,
                 name: widget.name,
