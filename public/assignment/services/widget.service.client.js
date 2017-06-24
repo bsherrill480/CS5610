@@ -31,7 +31,7 @@
             ];
 
         var createWidgetMap = {
-            'HEADER': createHeaderWidget,
+            'HEADING': createHeaderWidget,
             'IMAGE': createImageWidget,
             'YOUTUBE': createYouTubeWidget,
             'HTML': createHTMLWidget,

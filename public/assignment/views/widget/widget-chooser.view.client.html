@@ -22,45 +22,8 @@
 
 <div class="container-fluid cl-container-padding-top0">
     <ul class="list-group cl-list-group-borderless">
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-heading.html">Header</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-list.html">Label</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-list.html">HTML</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-list.html">Text Input</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-list.html">Link</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-list.html">Button</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-image.html">Image</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-youtube.html">YouTube</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-list.html">Data Table</a>
-        </li>
-        <li class="list-group-item cl-list-item-borderless">
-
-            <a href="widget-list.html">Repeater</a>
+        <li ng-repeat="t in model.types" class="list-group-item cl-list-item-borderless">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/create/{{model.wtype}}">{{t}}</a>
         </li>
     </ul>
 </div>
