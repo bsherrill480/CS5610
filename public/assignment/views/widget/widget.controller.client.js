@@ -39,9 +39,8 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-        vm.futureFeature = futureFeature;
-        vm.featureMissingAlert = null;
+        vm.widgets = WidgetService.findAllWidgets(vm.pid);
+
     }
 
     function CreateWidgetController($routeParams, $location, WidgetService) {
