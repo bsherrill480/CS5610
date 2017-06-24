@@ -37,8 +37,9 @@
             <label for="widget-youtube-width">Width</label>
             <input  ng-model="model.widgetWidth" type="text" class="form-control" id="widget-youtube-width" placeholder="100%">
         </div>
-            <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block" id="widget-youtube-delete-btn">Delete</a>
+        <a ng-click="model.createWidget()" class="btn btn-primary btn-block" id="widget-youtube-create-btn">Create</a>
     </form>
+    <div ng-show="model.createError" class="alert alert-danger" role="alert">{{model.createError}}</div>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid row">
