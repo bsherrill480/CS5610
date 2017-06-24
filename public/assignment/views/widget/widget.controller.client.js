@@ -41,12 +41,6 @@
         vm.pid = $routeParams.pid;
         vm.widgets = WidgetService.findAllWidgets(vm.pid);
 
-        vm.types = ["HEADING", "IMAGE", "YOUTUBE", "HTML", "LINK", "TEXTINPUT", "LABEL", "BUTTON", "REPEATER", "DATATABLE"];
-        vm.wtype = wtype;
-        
-        function wtype() {
-            
-        }
     }
 
     function CreateWidgetController($routeParams, $location, WidgetService) {
