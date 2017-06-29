@@ -8,6 +8,7 @@
         this.findWebsiteById = findWebsiteById;
         this.deleteWebsite = deleteWebsite;
         this.createWebsite = createWebsite;
+        this.updateWebsite = updateWebsite;
 
         var websites = [
             {_id: "123", name: "Facebook", developerId: "456", description: "Lorem"},
@@ -18,6 +19,16 @@
             {_id: "678", name: "Checkers", developerId: "123", description: "Lorem"},
             {_id: "789", name: "Chess", developerId: "234", description: "Lorem"}
         ];
+
+        function updateWebsite(wid, website) {
+
+                var oldWebsite = findWebsiteById(wid);
+                var index = websites.indexOf(oldWebsite);
+                websites[index].name = website.name;
+                websites[index].description = website.description;
+
+        }
+
 
 
         function findWebsitesByUser(uid){
