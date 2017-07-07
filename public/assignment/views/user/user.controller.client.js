@@ -56,12 +56,20 @@
 
     function ProfileController($routeParams, $location, $timeout, UserService) {
         var vm = this;
-        vm.user = UserService.findUserById($routeParams.uid);
+
+        vm.userId = $routeParams['uid'];
+
+        var promise = UserService.findUserById(vm.userId)
+        promise.then(function (response){
+            console.log(response);
+            vm.user = response.data;
+        });
+
         // fetch username from user to user.username in template
-        vm.username = vm.user.username;
-        vm.firstName = vm.user.firstName;
-        vm.lastName = vm.user.lastName;
-        vm.email = vm.user.email;
+        // vm.username = vm.user.username;
+        // vm.firstName = vm.user.firstName;
+        // vm.lastName = vm.user.lastName;
+        // vm.email = vm.user.email;
         vm.updateUser = updateUser;
 
         function updateUser() {
