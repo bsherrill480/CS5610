@@ -59,11 +59,17 @@
 
         vm.userId = $routeParams['uid'];
 
-        var promise = UserService.findUserById(vm.userId)
-        promise.then(function (response){
-            console.log(response);
-            vm.user = response.data;
-        });
+        UserService
+            .findUserById(vm.userId)
+            .then(renderUser, userError);
+
+        function renderUser(user){
+            vm.user = user;
+        }
+
+        function userError() {
+            vm.error = "User not Found";
+        }
 
         // fetch username from user to user.username in template
         // vm.username = vm.user.username;

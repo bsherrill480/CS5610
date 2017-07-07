@@ -21,6 +21,14 @@
     </div>
 </nav>
 
+
+<div ng-show="model.error" class="alert alert-info">
+    {{model.error}}
+</div>
+
+
+
+
 <div class="container">
     <div ng-show="model.updated" class="alert alert-success" role="alert">{{model.updated}}</div>
     <form class="cl-form-bottom-padding">

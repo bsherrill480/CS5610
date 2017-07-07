@@ -56,9 +56,9 @@
             // return null;
             var url = "/api/user/" + userId;
             return $http.get(url)
-                // .then(function (response) {
-                //     var user = response.data;
-                // })
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                })
         }
 
         function findUserByUsername(username) {
