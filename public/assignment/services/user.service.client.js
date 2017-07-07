@@ -58,7 +58,7 @@
             return $http.get(url)
                 .then(function (response) {//unwrap the data in servers
                     return response.data;
-                })
+                });
         }
 
         function findUserByUsername(username) {
@@ -72,13 +72,18 @@
         }
 
         function findUserByCredentials(username, password) {
-            for (u in users){
-                var user = users[u];
-                if((user.username === username) && (user.password === password)){
-                    return user;
-                }
-            }
-            return null;
+            var url = "/api/user?username=" +username+ "&password=" +password;
+            return $http.get(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // for (u in users){
+            //     var user = users[u];
+            //     if((user.username === username) && (user.password === password)){
+            //         return user;
+            //     }
+            // }
+            // return null;
         }
 
         function updateUser(userId, user) {

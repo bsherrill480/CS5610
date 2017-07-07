@@ -10,12 +10,16 @@
         vm.login = login;
 
         function login(username, password) {
-            var user = UserService.findUserByCredentials(username, password);
-            if (user === null) {
-                vm.error = "Username does not exist.";
-            } else {
-                $location.url("/user/" + user._id);
-            }
+            // var user = UserService.findUserByCredentials(username, password);
+            UserService
+                .findUserByCredentials(username, password)
+                .then(function (found) {
+                if (found !== null) {
+                    $location.url("/user/" + found._id);
+                } else {
+                    vm.error = "Username does not exist.";
+                }
+            });
         }
     }
 

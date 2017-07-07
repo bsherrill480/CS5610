@@ -14,8 +14,8 @@ module.exports = function(app){
     // GET Calls.
     //app.get('/api/user?username=username', findUserByUsername);
     //app.get('/api/user?username=username&password=password', findUserByUsername);
-    // app.get('/api/user', findUserByCredentials);
-
+    app.get('/api/user', findAllUsers);
+    // app.get('/api/user?username=username&password=password', findUserByCredentials);
     app.get('/api/user/:uid', findUserById);
 
     // POST Calls.
@@ -28,6 +28,23 @@ module.exports = function(app){
     // app.delete('/api/user/:uid', deleteUser);
 
     /*API implementation*/
+    function findAllUsers(req, res) {
+        var username = req.query['username'];
+        var password = req.query['password'];
+        if(username && password){
+            for (u in users){
+                    var user = users[u];
+                    if((user.username === username) && (user.password === password)){
+                        res.send(user);
+                        return;
+                    }
+                }
+                res.sendStatus(404);
+        } else {
+            res.send(users);
+        }
+    }
+
     function createUsers(req, res) {
         var user = req.body;
 
