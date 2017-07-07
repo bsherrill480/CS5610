@@ -1,6 +1,6 @@
 /*var users = require("./users.mock.json");*/
 
-module.exports = function(app){
+module.exports = function(app) {
 
     var users = [
         {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder", email: "alice@gmail.com"},
@@ -12,44 +12,26 @@ module.exports = function(app){
 
 
     // GET Calls.
-    //app.get('/api/user?username=username', findUserByUsername);
-    //app.get('/api/user?username=username&password=password', findUserByUsername);
-    app.get('/api/user', findAllUsers);
-    // app.get('/api/user?username=username&password=password', findUserByCredentials);
+//app.get('/api/user?username=username', findUserByUsername);
+    app.get('/api/user', findUserAllUser);
     app.get('/api/user/:uid', findUserById);
 
-    // POST Calls.
-    // app.post('/api/user', createUsers);
-    //
-    // // PUT Calls.
-    // app.put('/api/user/:uid', updateUser);
-    //
-    // // DELETE Calls.
-    // app.delete('/api/user/:uid', deleteUser);
+// POST Calls.
+    app.post('/api/user', createUsers);
+
+// PUT Calls.
+    app.put('/api/user/:uid', updateUser);
+
+// DELETE Calls.
+    app.delete('/api/user/:uid', deleteUser);
+
 
     /*API implementation*/
-    function findAllUsers(req, res) {
-        var username = req.query['username'];
-        var password = req.query['password'];
-        if(username && password){
-            for (u in users){
-                    var user = users[u];
-                    if((user.username === username) && (user.password === password)){
-                        res.send(user);
-                        return;
-                    }
-                }
-                res.sendStatus(404);
-        } else {
-            res.send(users);
-        }
-    }
-
     function createUsers(req, res) {
         var user = req.body;
 
         var newUser = {
-            _id: new Date().getTime(),
+            _id: (new Date()).getTime() + "",
             username: user.username,
             password: user.password,
             firstName: user.firstName,
@@ -58,70 +40,65 @@ module.exports = function(app){
         };
         users.push(newUser);
 
-        if(newUser){
+        if (newUser) {
             res.status(200).send(newUser);
+            return;
         } else {
-            res.sendStatus(500);
+            res.status(500);
+            return;
         }
     }
 
-    function findUserByUsername (req, res) {
+    function findUserAllUser(req, res) {
         var username = req.query.username;
-
-        for (u in users){
-            var user = users[u];
-            if(user.username === username){
-                res.status(200).send(user);
+        var password = req.query.password;
+        if (username && password) {
+            var user = users.find(function (u) {
+                return u.username === username && u.password === password
+            });
+            if (user) {
+                res.send(user);
+                return;
+            } else {
+                res.send(null);
+                return;
+            }
+        } else if (username) {
+            var user = users.find(function (u) {
+                return u.username === username
+            });
+            if (user) {
+                res.send(user);
+                return;
+            } else {
+                res.status(404);
                 return;
             }
         }
-        res.status(404).send("not found!");
-    }
 
-    function findUserByCredentials (req, res) {
-        var username = req.query.username;
-        var pswd = req.query.password;
-
-        /*for (u in users){
-         var user = users[u];
-         if(user.username === username && user.password === pswd){
-         res.status(200).send(user);
-         return;
-         }
-         }*/
-
-        var user = users.find(function (u) { return u.username==username && u.password==pswd  });
-        res.send(user);
     }
 
     function findUserById(req, res) {
         var uid = req.params.uid;
-
-        /*for (u in users){
-         var user = users[u];
-         if(user._id === uid){
-         res.status(200).send(user);
-         return;
-         }
-         }*/
-        var user = users.find(function (u) { return u._id==uid });
-        if(user)
-        {
+        var user = users.find(function (u) {
+            return u._id == uid
+        });
+        if (user) {
             res.send(user);
-        }
-        else
-        {
+            return;
+        } else {
             res.status(404).send("not found!");
+            return;
         }
     }
 
-    function updateUser(req,res) {
-        var uid = req.params.id;
+    function updateUser(req, res) {
+        var uid = req.params.uid;
         var new_user = req.body;
 
-        for (u in users){
+        for (u in users) {
             var user = users[u];
-            if(user._id === uid){
+            if (user._id === uid) {
                 user.firstName = new_user.firstName;
                 user.lastName = new_user.lastName;
                 user.email = new_user.email;
@@ -132,17 +109,17 @@ module.exports = function(app){
         res.status(404).send("not found!");
     }
 
-    function deleteUser(req,res) {
-        var uid = req.params.id;
+    function deleteUser(req, res) {
+        var uid = req.params.uid;
 
-        for (u in users){
+        for (u in users) {
             var user = users[u];
-            if(user._id === uid){
-                users.splice(u,1);
+            if (user._id === uid) {
+                users.splice(u, 1);
                 res.sendStatus(200);
                 return;
             }
         }
         res.status(404).send("not found!");
     }
-};
+}

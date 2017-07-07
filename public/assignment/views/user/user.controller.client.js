@@ -23,7 +23,7 @@
         }
     }
 
-    function RegisterController(UserService, $location, $timeout) {
+    function RegisterController($location, UserService) {
         var vm = this;
         vm.register = register;
 
@@ -36,25 +36,27 @@
                 vm.error = "Password does not match.";
                 return;
             }
-            var user = UserService.findUserByUsername(username);
-            if (user === null) {
-                user = {
-                    username: username,
-                    password: password,
-                    firstName: "",
-                    lastName: "",
-                    email: ""
-                };
-                UserService.createUser(user);
-                user = UserService.findUserByUsername(username);
-                $location.url("/user/" + user._id);
-            }
-            else {
-                vm.error = "Username already exists.";
-                $timeout(function () {
-                    vm.error = null;
-                }, 3000);
-            }
+            UserService
+                .findUserByUsername(username)
+                .then(
+                    function () {
+                        vm.error = "Username already exists.";
+                    },
+                    function () {
+                        var user = {
+                            username: username,
+                            password: password,
+                            firstName: "",
+                            lastName: "",
+                            email: ""
+                        };
+                        return UserService
+                            .createUser(user);
+                    }
+                )
+                .then(function (newUser) {
+                    $location.url("/user/" + newUser._id);
+                });
         }
     }
 
