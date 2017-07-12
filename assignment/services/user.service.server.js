@@ -25,7 +25,7 @@ module.exports = function(app){
     app.put('/api/user/:uid', updateUser);
     //
     // // DELETE Calls.
-    // app.delete('/api/user/:uid', deleteUser);
+    app.delete('/api/user/:uid', deleteUser);
 
     /*API implementation*/
     function findAllUsers(req, res) {
@@ -140,7 +140,7 @@ module.exports = function(app){
     }
 
     function deleteUser(req,res) {
-        var uid = req.params.id;
+        var uid = req.params.uid;
 
         for (u in users){
             var user = users[u];
@@ -150,6 +150,6 @@ module.exports = function(app){
                 return;
             }
         }
-        res.status(404).send("not found!");
+        res.sendStatus(404);
     }
 };

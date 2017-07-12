@@ -110,9 +110,14 @@
         }
 
         function deleteUser(userId) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
-            users.splice(index);
+            var url = "/api/user/" + userId;
+            return $http.delete(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // var oldUser = findUserById(userId);
+            // var index = users.indexOf(oldUser);
+            // users.splice(index);
         }
     }
 })();

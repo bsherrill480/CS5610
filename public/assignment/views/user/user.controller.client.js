@@ -115,7 +115,7 @@
         // model.lastName = model.user.lastName;
         // model.email = model.user.email;
         model.updateUser = updateUser;
-
+        model.deleteUser = deleteUser;
         // function updateUser() {
         //     var update_user = {
         //         _id: $routeParams.uid,
@@ -137,6 +137,17 @@
                 .then(function () {
                     model.message = "User update was successful";
                 })
+        }
+
+        function deleteUser(user) {
+            UserService
+                .deleteUser(user._id)
+                .then(function () {
+                    $location.url('/')
+                }),
+                    function () {
+                model.error = "Unable to unregister you"
+            }
         }
 
     }
