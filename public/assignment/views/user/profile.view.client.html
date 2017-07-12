@@ -21,8 +21,10 @@
     </div>
 </nav>
 
-
-<div ng-show="model.error" class="alert alert-info">
+<div ng-show="model.message" class="alert alert-info">
+    {{model.message}}
+</div>
+<div ng-show="model.error" class="alert alert-danger">
     {{model.error}}
 </div>
 
@@ -57,9 +59,12 @@
                placeholder="last name"
                id="lName" required>
     </form>
-
-    <a href="#!/user/{{model.user._id}}/website" class="btn btn-primary btn-block">Websites</a>
-    <a href="#!/login" class="btn btn-danger btn-block">Logout</a>
+    <a ng-click="model.updateUser(model.user)"
+       class="btn btn-success btn-block">Update</a>
+    <a href="#!/user/{{model.user._id}}/website"
+       class="btn btn-primary btn-block">Websites</a>
+    <a href="#!/login"
+       class="btn btn-danger btn-block">Logout</a>
 </div>
 
 <div ng-include="'views/common/footer-blue.view.client.html'"></div>

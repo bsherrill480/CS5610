@@ -22,7 +22,7 @@ module.exports = function(app){
     app.post('/api/user', createUsers);
     //
     // // PUT Calls.
-    // app.put('/api/user/:uid', updateUser);
+    app.put('/api/user/:uid', updateUser);
     //
     // // DELETE Calls.
     // app.delete('/api/user/:uid', deleteUser);
@@ -127,19 +127,16 @@ module.exports = function(app){
 
     function updateUser(req,res) {
         var uid = req.params.id;
-        var new_user = req.body;
+        var user = req.body;
 
-        for (u in users){
-            var user = users[u];
-            if(user._id === uid){
-                user.firstName = new_user.firstName;
-                user.lastName = new_user.lastName;
-                user.email = new_user.email;
-                res.status(200).send(user);
+        for (var u in users){
+            if(users[u].id === uid){
+                users[u] = user;
+                res.sendStatus(200);
                 return;
             }
         }
-        res.status(404).send("not found!");
+        res.status(404);
     }
 
     function deleteUser(req,res) {

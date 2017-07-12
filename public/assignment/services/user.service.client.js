@@ -97,11 +97,16 @@
         }
 
         function updateUser(userId, user) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
-            users[index].firstName = user.firstName;
-            users[index].lastName = user.lastName;
-            users[index].email = user.email;
+            var url = "/api/user/" + userId;
+            return $http.put(url, user)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // var oldUser = findUserById(userId);
+            // var index = users.indexOf(oldUser);
+            // users[index].firstName = user.firstName;
+            // users[index].lastName = user.lastName;
+            // users[index].email = user.email;
         }
 
         function deleteUser(userId) {
