@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .service('WebsiteService', WebsiteService);
 
-    function WebsiteService() {
+    function WebsiteService($http) {
         this.findWebsitesByUser = findWebsitesByUser;
         this.findWebsiteById = findWebsiteById;
         this.deleteWebsite = deleteWebsite;
@@ -32,15 +32,21 @@
 
 
         function findWebsitesByUser(uid){
-            var results = [];
+            var url = "/api/user/" +uid +"/website";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
 
-            for(var v in websites){
-                if(websites[v].developerId === uid){
-                    results.push(websites[v]);
-                }
-            }
-
-            return results;
+            // var results = [];
+            //
+            // for(var v in websites){
+            //     if(websites[v].developerId === uid){
+            //         results.push(websites[v]);
+            //     }
+            // }
+            //
+            // return results;
         }
 
         function findWebsiteById(wid) {
