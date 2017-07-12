@@ -36,25 +36,59 @@
                 vm.error = "Password does not match.";
                 return;
             }
-            var user = UserService.findUserByUsername(username);
-            if (user === null) {
-                user = {
-                    username: username,
-                    password: password,
-                    firstName: "",
-                    lastName: "",
-                    email: ""
-                };
-                UserService.createUser(user);
-                user = UserService.findUserByUsername(username);
-                $location.url("/user/" + user._id);
-            }
-            else {
-                vm.error = "Username already exists.";
-                $timeout(function () {
-                    vm.error = null;
-                }, 3000);
-            }
+            // var user = UserService.findUserByUsername(username);
+            UserService
+                .findUserByUsername(username)
+                .then(
+                    function(){
+                        vm.error = "Username already exists.";
+                        $timeout(function () {
+                            vm.error = null;
+                        }, 3000);
+                    },
+                    function () {
+                        var user = {
+                            username: username,
+                            password: password,
+                            firstName: "",
+                            lastName: "",
+                            email: "",
+                            _id: (new Date()).getTime() + ""
+                        };
+                         return UserService
+                            .createUser(user)
+                            // .then(
+                            //     function (user) {
+                            //         $location.url("/user/" + user._id);
+                            //     }
+                            // )
+                        // user = UserService.findUserByUsername(username);
+                        //$location.url("/user/" + user._id);
+                    }
+                )
+                .then(// after adding a return before UserService, then catch the promise here to avoid nesting construction and keep synchronize.
+                    function (user) {
+                        $location.url("/user/" + user._id);
+                    }
+                );
+            // if (user === null) {
+            //     user = {
+            //         username: username,
+            //         password: password,
+            //         firstName: "",
+            //         lastName: "",
+            //         email: ""
+            //     };
+            //     UserService.createUser(user);
+            //     user = UserService.findUserByUsername(username);
+            //     $location.url("/user/" + user._id);
+            // }
+            // else {
+            //     vm.error = "Username already exists.";
+            //     $timeout(function () {
+            //         vm.error = null;
+            //     }, 3000);
+            // }
         }
     }
 

@@ -19,7 +19,7 @@ module.exports = function(app){
     app.get('/api/user/:uid', findUserById);
 
     // POST Calls.
-    // app.post('/api/user', createUsers);
+    app.post('/api/user', createUsers);
     //
     // // PUT Calls.
     // app.put('/api/user/:uid', updateUser);
@@ -40,7 +40,17 @@ module.exports = function(app){
                     }
                 }
                 res.sendStatus(404);
-        } else {
+        } else if(username){
+            for (u in users){
+                var user = users[u];
+                if(user.username === username){
+                    res.send(user);
+                    return;
+                }
+            }
+            res.sendStatus(404);
+        }
+        else {
             res.send(users);
         }
     }
@@ -49,7 +59,7 @@ module.exports = function(app){
         var user = req.body;
 
         var newUser = {
-            _id: new Date().getTime(),
+            _id: (new Date()).getTime() + "",
             username: user.username,
             password: user.password,
             firstName: user.firstName,

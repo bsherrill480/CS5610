@@ -34,16 +34,21 @@
         }
 
         function createUser(user) {
-            var newUserId = getNextId();
-            var newUser = {
-                _id: newUserId,
-                username: user.username,
-                password: user.password,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email
-            };
-            users.push(newUser);
+            var url = "/api/user";
+            return $http.post(url, user)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // var newUserId = getNextId();
+            // var newUser = {
+            //     _id: newUserId,
+            //     username: user.username,
+            //     password: user.password,
+            //     firstName: user.firstName,
+            //     lastName: user.lastName,
+            //     email: user.email
+            // };
+            // users.push(newUser);
         }
 
         function findUserById(userId) {
@@ -62,13 +67,18 @@
         }
 
         function findUserByUsername(username) {
-            for (u in users){
-                var user = users[u];
-                if(user.username === username){
-                    return user;
-                }
-            }
-            return null;
+            var url = "/api/user?username=" +username;
+            return $http.get(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // for (u in users){
+            //     var user = users[u];
+            //     if(user.username === username){
+            //         return user;
+            //     }
+            // }
+            // return null;
         }
 
         function findUserByCredentials(username, password) {
