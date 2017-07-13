@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .factory('PageService', PageService);
 
-    function PageService() {
+    function PageService($http) {
         var pages = [
             { _id: "321", name: "Post 1", websiteId: "456", description: "Lorem" },
             { _id: "432", name: "Post 2", websiteId: "456", description: "Lorem" },
@@ -45,15 +45,23 @@
         }
 
         function findPageByWebsiteId(wid) {
-            var results = [];
+            var url = "/api/website/" +wid+ "/page";
+            return $http.get(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
 
-            for(var v in pages){
-                if(pages[v].websiteId === wid){
-                    results.push(pages[v]);
-                }
-            }
 
-            return results;
+
+            // var results = [];
+            //
+            // for(var v in pages){
+            //     if(pages[v].websiteId === wid){
+            //         results.push(pages[v]);
+            //     }
+            // }
+            //
+            // return results;
         }
 
         function findPageById(pid) {
