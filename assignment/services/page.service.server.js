@@ -9,7 +9,29 @@ module.exports = function(app){
 
     ];
 
+    app.post('/api/website/:wid/page', createPage);
     app.get('/api/website/:wid/page', findAllPagesForWebsite);
+
+    function createPage(req, res) {
+        var page = req.body;
+
+
+        var newPage = {
+            _id: (new Date()).getTime() + "",
+            name: page.name,
+            websiteId: req.params.wid,
+            description:page.description,
+            title:page.title
+
+        };
+        pages.push(newPage);
+
+        if(newPage){
+            res.status(200).send(newPage);
+        } else {
+            res.sendStatus(500);
+        }
+    }
 
 
     function findAllPagesForWebsite(req, res) {

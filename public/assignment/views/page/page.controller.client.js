@@ -34,9 +34,14 @@
         model.createPage = createPage
 
         function createPage(page) {
-            page.websiteId = model.wid;
-            PageService.createPage(model.wid,page);
-            $location.url("/user/" + model.uid + "/website/" + model.wid + "/page");
+            // page.websiteId = model.wid;
+            // PageService.createPage(model.wid,page);
+            // $location.url("/user/" + model.uid + "/website/" + model.wid + "/page");
+            PageService
+                .createPage(model.wid,page)
+                .then(function () {
+                    $location.url("/user/" + model.uid + "/website/" + model.wid + "/page")
+                })
         }
     }
 

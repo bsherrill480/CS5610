@@ -32,16 +32,24 @@
         }
 
         function createPage(wid, page) {
-            var newPageId = getNextId();
-            var newPage = {
-                _id: newPageId,
-                name: page.name,
-                websiteId:wid,
-                description:page.description,
-                title:page.title
+            var url = "/api/website/" +wid+ "/page";
+            return $http.post(url, page)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
 
-            };
-            pages.push(newPage);
+
+
+            // var newPageId = getNextId();
+            // var newPage = {
+            //     _id: newPageId,
+            //     name: page.name,
+            //     websiteId:wid,
+            //     description:page.description,
+            //     title:page.title
+            //
+            // };
+            // pages.push(newPage);
         }
 
         function findPageByWebsiteId(wid) {
