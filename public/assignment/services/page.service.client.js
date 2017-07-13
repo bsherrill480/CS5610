@@ -73,13 +73,19 @@
         }
 
         function findPageById(pid) {
-            for (p in pages){
-                var page = pages[p];
-                if(parseInt(page._id) === parseInt(pid)){
-                    return page;
-                }
-            }
-            return null;
+            var url = "/api/page/" +pid;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+
+            // for (p in pages){
+            //     var page = pages[p];
+            //     if(parseInt(page._id) === parseInt(pid)){
+            //         return page;
+            //     }
+            // }
+            // return null;
         }
 
         function updatePage(pid, page) {
@@ -87,11 +93,16 @@
         }
 
         function deletePage(pid) {
-            for(var p in pages){
-                if(pages[p]._id === pid){
-                    pages.splice(p, 1);
-                }
-            }
+            var url = "/api/page/" +pid;
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
+            // for(var p in pages){
+            //     if(pages[p]._id === pid){
+            //         pages.splice(p, 1);
+            //     }
+            // }
         }
     }
 })();

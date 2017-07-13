@@ -58,13 +58,28 @@
 
         function init() {
             // model.pages = PageService.findPageByWebsiteId(model.wid);
-            model.page = PageService.findPageById(model.pid);
+            //model.page = PageService.findPageById(model.pid);
+            PageService
+                .findPageById(model.pid)
+                .then(renderPage)
         }
         init();
+        function renderPage(page) {
+            model.page = page;
+        }
+
 
         function deletePage () {
-            PageService.deletePage(model.pid);
-            $location.url("/user/"+model.uid+"/website/"+model.wid+"/page");
+            PageService
+                .deletePage(model.pid)
+                .then(function () {
+                    $location.url("/user/"+model.uid+"/website/"+model.wid+"/page")
+                })
+
+
+
+            // PageService.deletePage(model.pid);
+            // $location.url("/user/"+model.uid+"/website/"+model.wid+"/page");
         }
     }
 })();
