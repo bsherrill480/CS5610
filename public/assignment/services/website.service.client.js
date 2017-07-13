@@ -50,26 +50,44 @@
         }
 
         function findWebsiteById(wid) {
-            for (w in websites){
-                var website = websites[w];
-                if(parseInt(website._id) === parseInt(wid)){
-                    return website;
-                }
-            }
-            return null;
+            var url = "/api/website/" +wid;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+
+
+            // for (w in websites){
+            //     var website = websites[w];
+            //     if(parseInt(website._id) === parseInt(wid)){
+            //         return website;
+            //     }
+            // }
+            // return null;
         }
 
         function deleteWebsite(wid) {
-            for(var w in websites){
-                if(websites[w]._id === wid){
-                    websites.splice(w, 1);
-                }
-            }
+            var url = "/api/website/" +wid;
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
+
+            // for(var w in websites){
+            //     if(websites[w]._id === wid){
+            //         websites.splice(w, 1);
+            //     }
+            // }
         }
 
-        function createWebsite(website) {
-            website._id = (new Date()).getTime() + "";
-            websites.push(website);
+        function createWebsite(uid,website) {
+            var url = "/api/user/" + uid+ "/website";
+            return $http.post(url, website)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // website._id = (new Date()).getTime() + "";
+            // websites.push(website);
         }
     }
 })();

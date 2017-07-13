@@ -10,6 +10,9 @@ module.exports = function(app){
     ];
 
     app.get("/api/user/:uid/website", findWebsitesByUser);
+    app.get("/api/website/:wid", findWebsiteById);
+    app.delete("/api/website/:wid", deleteWebsite);
+    app.post("/api/user/:uid/website", createWebsite);
 
     function findWebsitesByUser(req, res) {
 
@@ -22,6 +25,44 @@ module.exports = function(app){
         }
 
         res.json(results);
+    }
+
+    function findWebsiteById(req, res) {
+        for (w in websites){
+            var website = websites[w];
+            if(parseInt(website._id) === parseInt(req.params.wid)){
+                res.json(website);
+            }
+        }
+        res.sendStatus(404);
+    }
+
+    function deleteWebsite(req, res) {
+        var wid = req.params.wid;
+
+        for(var w in websites){
+            if(websites[w]._id === wid){
+                websites.splice(w, 1);
+            }
+        }
+    }
+
+    function createWebsite(req, res) {
+        var website = req.body;
+
+        var newWebsite = {
+            _id : (new Date()).getTime() + "",
+            developerId : req.params.uid,
+            name: website.name,
+            description: website.description
+        };
+        websites.push(newWebsite);
+
+        if(newWebsite){
+            res.status(200).send(newWebsite);
+        } else {
+            res.sendStatus(500);
+        }
     }
 }
 
