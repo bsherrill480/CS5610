@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .service('WidgetService', WidgetService);
 
-    function WidgetService() {
+    function WidgetService($http) {
 
         this.findAllWidgets = findAllWidgets;
         this.createWidget = createWidget;
@@ -45,7 +45,12 @@
 
 
         function findAllWidgets(pid) {
-            return widgets;
+            var url = "/api/page/" +pid+ "/widget";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                })
+            //return widgets;
         }
 
         function getNextId() {
@@ -135,9 +140,14 @@
          * Standard CRUD
          */
         function createWidget(pageId, widget) {
-            var newWidgetId = getNextId();
-            var newWidget = createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
-            widgets.push(newWidget);
+            var url = "/api/page/" +pageId+ "/widget";
+            return $http.post(url, widget)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // var newWidgetId = getNextId();
+            // var newWidget = createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
+            // widgets.push(newWidget);
         }
 
         function findWidgetsByPageId(pageId) {
@@ -151,35 +161,54 @@
         }
 
         function findWidgetById(widgetId) {
-            for (wid in widgets) {
-                var widget = widgets[wid];
-                if (widget._id === widgetId) {
-                    return widget;
-                }
-            }
-            return null;
+            var url = "/api/widget/" +widgetId;
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+
+            // for (wid in widgets) {
+            //     var widget = widgets[wid];
+            //     if (widget._id === widgetId) {
+            //         return widget;
+            //     }
+            // }
+            // return null;
         }
 
         function updateWidget(widgetId, widget) {
-            var oldWidget = findWidgetById(widgetId);
-            var index = widgets.indexOf(oldWidget);
-            if (oldWidget.widgetType != widget.widgetType) {
-                return;
-            }
-            Object.keys(widget).forEach(function (property) {
-                if (property === '_id' || property === 'widgetType' || property === 'pageId') {
-                    return;
-                }
-                if (oldWidget.hasOwnProperty(property)) {
-                    oldWidget[property] = widget[property];
-                }
-            });
+            var url = "/api/widget/" +widgetId;
+            return $http.put(url, widget)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+
+
+
+            // var oldWidget = findWidgetById(widgetId);
+            // var index = widgets.indexOf(oldWidget);
+            // if (oldWidget.widgetType != widget.widgetType) {
+            //     return;
+            // }
+            // Object.keys(widget).forEach(function (property) {
+            //     if (property === '_id' || property === 'widgetType' || property === 'pageId') {
+            //         return;
+            //     }
+            //     if (oldWidget.hasOwnProperty(property)) {
+            //         oldWidget[property] = widget[property];
+            //     }
+            // });
         }
 
         function deleteWidget(widgetId) {
-            var oldWidget = findWidgetById(widgetId);
-            var index = widgets.indexOf(oldWidget);
-            widgets.splice(index, 1);
+            var url = "/api/widget/" +widgetId;
+            return $http.delete(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // var oldWidget = findWidgetById(widgetId);
+            // var index = widgets.indexOf(oldWidget);
+            // widgets.splice(index, 1);
         }
 
         function deleteWidgetsByPage(pageId) {
