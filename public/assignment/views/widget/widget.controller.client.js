@@ -27,8 +27,9 @@
         model.trust = trust;
         model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
         model.sortItems = function (start, end) {
+
             WidgetService
-             .sortItem(start, end);
+             .sortItems(start, end, model.pid);
 
         }
         
