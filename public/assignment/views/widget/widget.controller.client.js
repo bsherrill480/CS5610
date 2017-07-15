@@ -139,12 +139,12 @@
                     model.widget = widget;
                 });
             var latestData = {
-                name: model.widgetName,
-                text: model.widgetText,
+                name: model.widget.name,
+                text: model.widget.text,
                 widgetType: model.widget.widgetType,
-                size: model.widgetSize,
-                width: model.widgetWidth,
-                url: model.widgetUrl
+                size: model.widget.size,
+                width: model.widget.width,
+                url: model.widget.url
             };
             WidgetService
                 .updateWidget(model.wgid, latestData)
