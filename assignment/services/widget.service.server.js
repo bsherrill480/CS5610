@@ -159,7 +159,7 @@ module.exports = function(app){
     }
 
     function findAllWidgetsForPage(req, res) {
-        console.log('send all widgets');
+        //console.log('send all widgets');
 
         var pid = req.params.pid;
         var results = [];
