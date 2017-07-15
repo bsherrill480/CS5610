@@ -45,7 +45,19 @@ module.exports = function(app){
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        var widget = {};
+        var widget = widgets.find(function (wi) { return wi._id==widgetId });
+        if(!widget) {
+            widget = {
+                _id: new Date().getTime(),
+                widgetType: 'IMAGE',
+                pageId: pageId,
+                size: size,
+                name: '',
+                text: '',
+                width: width,
+            };
+            widgets.push(widget);
+        }
 
         widget.url = '/assignment/uploads/' + filename;
 
