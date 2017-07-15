@@ -26,7 +26,11 @@
 
         model.trust = trust;
         model.getYouTubeEmbedUrl = getYouTubeEmbedUrl;
-        
+        model.sortItems = function (start, end) {
+            WidgetService
+             .sortItem(start, end);
+
+        }
         
         function trust(html) {
             //scrubbing the html
@@ -39,6 +43,7 @@
             embedUrl += linkUrlParts[linkUrlParts.length -1];
             return $sce.trustAsResourceUrl(embedUrl);
         }
+
     }
 
     function NewWidgetController($routeParams, $timeout, WidgetService) {

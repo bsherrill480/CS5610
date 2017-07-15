@@ -27,6 +27,69 @@ module.exports = function(app){
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
 
+    //app.put("/api/page/:pid/widget?start=index1&end=index2", widgetSort);
+    app.put("/api/page/:pid/widget", widgetSort);
+
+    function widgetSort (start, end) {
+
+
+        for(var i in widgets){
+            var item = widgets[i];
+
+            console.log("wig: " + item.text);
+
+        }
+
+        var pageId = req.params.pid;
+        var start = req.query.index1;
+        var end = req.query.index2;
+        console.log("start sorting....." + start + "....." +end);
+
+        // var widgetsArr = [];
+        // for (wi in widgets) {
+        //     var widget = widgets[wi];
+        //     if (parseInt(widget.pageId) === parseInt(pageId)) {
+        //         widgetsArr.push(widget);
+        //     }
+        // }
+        //
+        widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
+        //
+        var item = widgets(start);
+
+        if(start > end){
+            widgets.splice(end, 0, item);
+            widgets.splice(start, 1);
+            // widgets.splice(start, 1);
+            // widgets.splice(end, 0, item);
+        }
+        else{
+            // widgets.splice(end, 0, item);
+            // widgets.splice(start, 1);
+
+            widgets.splice(start, 1);
+            widgets.splice(end, 0, item);
+        }
+
+        for(var i in widgets){
+            var item = widgets[i];
+
+            console.log("wig: " + item.text);
+
+        }
+
+        //
+        // var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
+        // widgetsArr.splice(end, 0, widgetToBeMoved);
+        //
+        // for (wi in widgetsArr) {
+        //     widgets.push(widgetsArr[wi]);
+        // }
+        //
+        // res.sendStatus(200);
+    }
+
+
     function uploadImage(req, res) {
         var widgetId      = req.body.widgetId;
         var width         = req.body.width;
@@ -59,13 +122,15 @@ module.exports = function(app){
             widgets.push(widget);
         }
 
-        widget.url = '/assignment/uploads/' + filename;
+        widget.url = '/uploads/' + filename;
 
         var callbackUrl = "/#!/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget";
         res.redirect(callbackUrl);
     }
 
     function findAllWidgetsForPage(req, res) {
+        console.log('send all widgets');
+
         var pid = req.params.pid;
         var results = [];
         for (wi in widgets) {

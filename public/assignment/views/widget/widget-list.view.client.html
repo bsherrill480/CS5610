@@ -20,8 +20,9 @@
     </div>
 </nav>
 
+<!--<div class="container cl-container-padding" wbdv-sortable callback="sortItems(start, end)">-->
 <div class="container cl-container-padding">
-    <div>
+    <div wbdv-sortable callback="model.sortItems(start, end)">
         <div ng-repeat="widget in model.widgets">
             <a href="#" class="pull-right">
                 <span class="glyphicon glyphicon-menu-hamburger"></span>

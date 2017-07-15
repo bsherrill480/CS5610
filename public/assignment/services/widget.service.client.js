@@ -12,6 +12,7 @@
         this.updateWidget = updateWidget;
         this.deleteWidget = deleteWidget;
         this.deleteWidgetsByPage = deleteWidgetsByPage;
+        this.sortItem = sortItem;
 
         var widgets =
             [
@@ -139,6 +140,15 @@
         /*
          * Standard CRUD
          */
+
+        function sortItem(start, end) {
+           var url = "/api/page/"+pid+ "/widget?start=index1&end=index2" ;
+            return $http.put(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+        }
+
         function createWidget(pageId, widget) {
             var url = "/api/page/" +pageId+ "/widget";
             return $http.post(url, widget)
