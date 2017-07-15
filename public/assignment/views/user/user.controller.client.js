@@ -131,7 +131,7 @@
         //     }, 3000);
         // }
 
-        function updateUser(user) {
+        function updateUser(F) {
             UserService
                 .updateUser(user._id, user)
                 .then(function () {

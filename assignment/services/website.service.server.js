@@ -8,11 +8,28 @@ module.exports = function(app){
         {_id: "678", name: "Checkers", developerId: "123", description: "Lorem"},
         {_id: "789", name: "Chess", developerId: "234", description: "Lorem"}
     ];
-
+    app.post("/api/user/:uid/website", createWebsite);
     app.get("/api/user/:uid/website", findWebsitesByUser);
     app.get("/api/website/:wid", findWebsiteById);
+    app.put("/api/website/:wid", updateWebsite);
     app.delete("/api/website/:wid", deleteWebsite);
-    app.post("/api/user/:uid/website", createWebsite);
+
+    function updateWebsite(req, res) {
+
+        var wid = req.params.wid;
+        var website = req.body;
+
+        for (w in websites) {
+            if (String(websites[w]._id) === String(wid)) {
+                // websites[w].name=website.name;
+                // websites[w].desc=website.desc;
+                websites[w] = website;
+                res.sendStatus(200);
+                return;
+            }
+        }
+        res.sendStatus(404);
+    }
 
     function findWebsitesByUser(req, res) {
 

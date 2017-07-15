@@ -22,10 +22,15 @@
 
         function updateWebsite(wid, website) {
 
-                var oldWebsite = findWebsiteById(wid);
-                var index = websites.indexOf(oldWebsite);
-                websites[index].name = website.name;
-                websites[index].description = website.description;
+            var url = "/api/website/" +wid;
+            return $http.put(url, website)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+                // var oldWebsite = findWebsiteById(wid);
+                // var index = websites.indexOf(oldWebsite);
+                // websites[index].name = website.name;
+                // websites[index].description = website.description;
 
         }
 

@@ -14,7 +14,7 @@
                 <a class="cl-text-white navbar-brand cl-text-bold" href="#">
                     Websites
                 </a>
-                <a href="#" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+                <a href="#!/user/{{model.uid}}/website/new" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding0">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
@@ -24,7 +24,7 @@
                 <a class="cl-text-white navbar-brand cl-text-bold" href="#">
                     Edit Websites
                 </a>
-                <a class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+                <a ng-click="model.updateWebsite(model.website)" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -41,6 +41,12 @@
             </li>
         </ul>
     </div>
+
+
+    <div ng-show="model.message" class="alert alert-info">
+        {{model.message}}
+    </div>
+
     <div class="col-sm-8">
         <form>
             <div class="form-group">
@@ -59,7 +65,7 @@
                           rows="5"
                           placeholder=""></textarea>
             </div>
-            <a ng-click="model.deleteWebsite()"
+            <a ng-click="model.deleteWebsite(model.website)"
                class="btn btn-danger  btn-block">Delete</a>
         </form>
     </div>

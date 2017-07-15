@@ -90,6 +90,11 @@
 
         function updatePage(pid, page) {
 
+            var url = "/api/page/" +pid;
+            return $http.put(url, page)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
         }
 
         function deletePage(pid) {

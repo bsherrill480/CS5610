@@ -34,6 +34,7 @@
         model.uid = $routeParams['uid'];
         model.wid = $routeParams['wid'];
         model.deleteWebsite= deleteWebsite;
+        model.updateWebsite = updateWebsite;
 
         function init(){
             //model.websites = WebsiteService.findWebsitesByUser(model.uid);
@@ -53,15 +54,23 @@
             model.website = website;
         }
 
+        function updateWebsite(website) {
+            WebsiteService
+                .updateWebsite(website._id, website)
+                .then(function () {
+                    model.message = "website update was successful";
+                })
+                .then(function () {
+                    $location.url("/user/" + model.uid + "/website")
+                });
+        }
 
-
-        function deleteWebsite () {
+        function deleteWebsite (website) {
             WebsiteService
                 .deleteWebsite(model.wid)
                 .then(function () {
-                        $location.url("/user/"+model.uid+"/website")
-                    }
-                )
+                    $location.url("/user/" + model.uid + "/website")
+                });
             // WebsiteService.deleteWebsite(model.wid);
             // $location.url("/user/"+model.uid+"/website");
 

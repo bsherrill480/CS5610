@@ -12,7 +12,25 @@ module.exports = function(app){
     app.post('/api/website/:wid/page', createPage);
     app.get('/api/website/:wid/page', findAllPagesForWebsite);
     app.get('/api/page/:pid', findPageById);
+    app.put('/api/page/:pid', updatePage);
     app.delete('/api/page/:pid', deletePage);
+
+
+    function updatePage(req, res) {
+        var pid = req.params.pid;
+        var page = req.body;
+
+        for (p in pages) {
+            if (String(pages[p]._id) === String(pid)) {
+                // websites[w].name=website.name;
+                // websites[w].desc=website.desc;
+                pages[p] = page;
+                res.sendStatus(200);
+                return;
+            }
+        }
+        res.sendStatus(404);
+    }
 
     function createPage(req, res) {
         var page = req.body;

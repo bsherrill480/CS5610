@@ -55,6 +55,7 @@
         model.wid = $routeParams['wid'];
         model.pid = $routeParams['pid'];
         model.deletePage= deletePage;
+        model.updatePage = updatePage;
 
         function init() {
             // model.pages = PageService.findPageByWebsiteId(model.wid);
@@ -68,6 +69,16 @@
             model.page = page;
         }
 
+        function updatePage(page) {
+            PageService
+                .updatePage(page._id, page)
+                .then(function () {
+                    model.message = "page update was successful";
+                })
+                .then(function () {
+                    $location.url("/user/" + model.uid + "/website/" + model.wid + "/page");
+                });
+        }
 
         function deletePage () {
             PageService
