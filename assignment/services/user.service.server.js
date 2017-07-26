@@ -1,4 +1,5 @@
 /*var users = require("./users.mock.json");*/
+var userModel = require("../model/user/user.model.server");
 
 module.exports = function(app){
 
@@ -56,24 +57,41 @@ module.exports = function(app){
     }
 
     function createUsers(req, res) {
+
         var user = req.body;
 
-        var newUser = {
-            _id: (new Date()).getTime() + "",
-            username: user.username,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email
-        };
-        users.push(newUser);
+        userModel
+            .createUser(user)
+            .then(
+                function (user) {
+                    res.json(user);
+                },
+                function (error) {
+                    res.sendStatus(404).send(error);
+                }
+            );
 
-        if(newUser){
-            res.status(200).send(newUser);
-        } else {
-            res.sendStatus(500);
-        }
     }
+
+    // function createUsers(req, res) {
+    //     var user = req.body;
+    //
+    //     var newUser = {
+    //         _id: (new Date()).getTime() + "",
+    //         username: user.username,
+    //         password: user.password,
+    //         firstName: user.firstName,
+    //         lastName: user.lastName,
+    //         email: user.email
+    //     };
+    //     users.push(newUser);
+    //
+    //     if(newUser){
+    //         res.status(200).send(newUser);
+    //     } else {
+    //         res.sendStatus(500);
+    //     }
+    // }
 
     function findUserByUsername (req, res) {
         var username = req.query.username;

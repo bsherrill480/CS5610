@@ -53,7 +53,7 @@
                             firstName: "",
                             lastName: "",
                             email: "",
-                            _id: (new Date()).getTime() + ""
+                            // _id: (new Date()).getTime() + ""
                         };
                          return UserService
                             .createUser(user)
