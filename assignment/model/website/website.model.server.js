@@ -6,8 +6,20 @@ websiteModel.findAllWebsites = findAllWebsites;
 websiteModel.createWebsite = createWebsite;
 websiteModel.findWebsitesByUser = findWebsitesByUser;
 websiteModel.deleteWebsite = deleteWebsite;
+websiteModel.findWebsiteById = findWebsiteById;
+websiteModel.updateWebsite = updateWebsite;
 
 module.exports = websiteModel;
+
+function updateWebsite(websiteId, newWebsite) {
+    return websiteModel.update({_id: websiteId}, {name: newWebsite.name, description: newWebsite.description})
+}
+
+
+function findWebsiteById(websiteId) {
+    return websiteModel
+        .findOne({_id: websiteId})
+}
 
 function findAllWebsites() {
     return websiteModel.find();
