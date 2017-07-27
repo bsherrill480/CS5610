@@ -1,3 +1,5 @@
+var websiteModel = require('../model/website/website.model.server');
+
 module.exports = function(app){
     var websites = [
         {_id: "123", name: "Facebook", developerId: "456", description: "Lorem"},
@@ -32,16 +34,20 @@ module.exports = function(app){
     }
 
     function findWebsitesByUser(req, res) {
-
-        var results = [];
-
-        for(var v in websites){
-            if(websites[v].developerId === req.params.uid){
-                results.push(websites[v]);
-            }
-        }
-
-        res.json(results);
+        websiteModel
+            .findWebsitesByUser(req.params.uid)
+            .then(function (websites) {
+                res.json(websites);
+            })
+        // var results = [];
+        //
+        // for(var v in websites){
+        //     if(websites[v].developerId === req.params.uid){
+        //         results.push(websites[v]);
+        //     }
+        // }
+        //
+        // res.json(results);
     }
 
     function findWebsiteById(req, res) {
@@ -57,29 +63,44 @@ module.exports = function(app){
     function deleteWebsite(req, res) {
         var wid = req.params.wid;
 
-        for(var w in websites){
-            if(websites[w]._id === wid){
-                websites.splice(w, 1);
-            }
-        }
+        websiteModel
+            .deleteWebsite(wid)
+            .then(function (status) {
+                res.json(status);
+            })
+        // var wid = req.params.wid;
+        //
+        // for(var w in websites){
+        //     if(websites[w]._id === wid){
+        //         websites.splice(w, 1);
+        //     }
+        // }
     }
 
     function createWebsite(req, res) {
         var website = req.body;
+        var userId = req.params.uid;
 
-        var newWebsite = {
-            _id : (new Date()).getTime() + "",
-            developerId : req.params.uid,
-            name: website.name,
-            description: website.description
-        };
-        websites.push(newWebsite);
-
-        if(newWebsite){
-            res.status(200).send(newWebsite);
-        } else {
-            res.sendStatus(500);
-        }
+        websiteModel
+            .createWebsite(userId, website)
+            .then(function (website) {
+                res.json(website);
+            })
+        // var website = req.body;
+        //
+        // var newWebsite = {
+        //     _id : (new Date()).getTime() + "",
+        //     developerId : req.params.uid,
+        //     name: website.name,
+        //     description: website.description
+        // };
+        // websites.push(newWebsite);
+        //
+        // if(newWebsite){
+        //     res.status(200).send(newWebsite);
+        // } else {
+        //     res.sendStatus(500);
+        // }
     }
 }
 

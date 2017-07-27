@@ -8,7 +8,7 @@ var userSchema = mongoose.Schema({
     email : String,
     phone : String,
     websites : [{
-        type: mongoose.Schema.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref : 'websiteModel'
     }],
     dateCreated : {
