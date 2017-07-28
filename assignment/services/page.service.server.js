@@ -1,4 +1,5 @@
 /*var users = require("./users.mock.json");*/
+var pageModel = require('../model/page/page.model.server');
 
 module.exports = function(app){
 
@@ -20,68 +21,105 @@ module.exports = function(app){
         var pid = req.params.pid;
         var page = req.body;
 
-        for (p in pages) {
-            if (String(pages[p]._id) === String(pid)) {
-                // websites[w].name=website.name;
-                // websites[w].desc=website.desc;
-                pages[p] = page;
-                res.sendStatus(200);
-                return;
-            }
-        }
-        res.sendStatus(404);
+        pageModel
+            .updatePage(pid, page)
+            .then(function (page) {
+                res.json(page)
+            })
+
+        // var pid = req.params.pid;
+        // var page = req.body;
+        //
+        // for (p in pages) {
+        //     if (String(pages[p]._id) === String(pid)) {
+        //         // websites[w].name=website.name;
+        //         // websites[w].desc=website.desc;
+        //         pages[p] = page;
+        //         res.sendStatus(200);
+        //         return;
+        //     }
+        // }
+        // res.sendStatus(404);
     }
 
     function createPage(req, res) {
-        var page = req.body;
+         var page = req.body;
+         var websiteId = req.params.wid;
+
+         pageModel
+             .createPage(websiteId, page)
+             .then(function (page) {
+                 res.json(page);
+             })
 
 
-        var newPage = {
-            _id: (new Date()).getTime() + "",
-            name: page.name,
-            websiteId: req.params.wid,
-            description:page.description,
-            title:page.title
 
-        };
-        pages.push(newPage);
-
-        if(newPage){
-            res.status(200).send(newPage);
-        } else {
-            res.sendStatus(500);
-        }
+        // var page = req.body;
+        //
+        //
+        // var newPage = {
+        //     _id: (new Date()).getTime() + "",
+        //     name: page.name,
+        //     websiteId: req.params.wid,
+        //     description:page.description,
+        //     title:page.title
+        //
+        // };
+        // pages.push(newPage);
+        //
+        // if(newPage){
+        //     res.status(200).send(newPage);
+        // } else {
+        //     res.sendStatus(500);
+        // }
     }
 
 
     function findAllPagesForWebsite(req, res) {
+        pageModel
+            .findAllPagesForWebsite(req.params.wid)
+            .then(function (pages) {
+                res.json(pages);
+            })
 
-        var results = [];
-
-        for(var v in pages){
-            if(pages[v].websiteId === req.params.wid){
-                results.push(pages[v]);
-            }
-        }
-
-        res.json(results) ;
+        // var results = [];
+        //
+        // for(var v in pages){
+        //     if(pages[v].websiteId === req.params.wid){
+        //         results.push(pages[v]);
+        //     }
+        // }
+        //
+        // res.json(results) ;
     }
 
     function findPageById(req, res) {
-        for (p in pages){
-            var page = pages[p];
-            if(parseInt(page._id) === parseInt(req.params.pid)){
-                res.json(page);
-            }
-        }
-        res.sendStatus(404);
+        pageModel
+            .findPageById(req.params.pid)
+            .then(function (status) {
+                res.json(status);
+            })
+        // for (p in pages){
+        //     var page = pages[p];
+        //     if(parseInt(page._id) === parseInt(req.params.pid)){
+        //         res.json(page);
+        //     }
+        // }
+        // res.sendStatus(404);
     }
 
     function deletePage(req, res) {
-        for(var p in pages){
-            if(pages[p]._id === req.params.pid){
-                pages.splice(p, 1);
-            }
-        }
+        var pid = req.params.pid;
+        pageModel
+            .deletePage(pid)
+            .then(function (status) {
+                res.json(status);
+            })
+
+        // for(var p in pages){
+        //     if(pages[p]._id === req.params.pid){
+        //         pages.splice(p, 1);
+        //     }
+        // }
     }
 };
