@@ -82,13 +82,23 @@
                     return;
                 }
             }
+            if (model.widgetType === 'HTML') {
+                if (model.widgetText === null || model.widgetText === undefined) {
+                    model.createError = "Text is required for HTML";
+                    return;
+                }
+            }
+
             var newWidget = {
                 name: model.widgetName,
                 text: model.widgetText,
                 widgetType: model.widgetType,
                 size: model.widgetSize,
                 width: model.widgetWidth,
-                url: model.widgetUrl
+                url: model.widgetUrl,
+                placeholder: model.placeholder,
+                rows: model.rows,
+                formatted: model.formatted
             };
             // WidgetService.createWidget(model.pid, newWidget);
             // $location.url("/user/" + model.uid + "/website/" + model.wid + "/page/" + model.pid + "/widget");
@@ -144,7 +154,10 @@
                 widgetType: model.widget.widgetType,
                 size: model.widget.size,
                 width: model.widget.width,
-                url: model.widget.url
+                url: model.widget.url,
+                placeholder: model.placeholder,
+                rows: model.rows,
+                formatted: model.formatted
             };
             WidgetService
                 .updateWidget(model.wgid, latestData)
