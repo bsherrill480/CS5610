@@ -18,7 +18,7 @@ function deletePage(websiteId, pageId) {
         .findOne({_id: websiteId})
         .then(function (website) {
             website.pages.pull(pageId);
-            website.save();
+            return website.save();
         })
 }
 
