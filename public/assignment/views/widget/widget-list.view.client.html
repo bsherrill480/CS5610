@@ -59,7 +59,7 @@
                 <div ng-switch-when="HTML"
                      ng-bind-html="model.trust(widget.text)">
                 </div>
-                <div ng-switch-when="YOUTUBE">
+                <div ng-switch-when="YOUTUBE" class="youtube-widget">
                     <iframe width="640" height="360" src="{{model.getYouTubeEmbedUrl(widget.url)}}" frameborder="0" allowfullscreen></iframe>"
                 </div>
             </div>
