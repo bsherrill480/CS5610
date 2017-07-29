@@ -1,6 +1,8 @@
 module.exports = function(mongoose) {
     var connectionString =  null;
 
+    console.log("heroku env: " + process.env.MONGODB_URI);
+
     if (process.env.MONGODB_URI) {
         connectionString = 'mongodb://cs5610_dev:cs5610@ds147821.mlab.com:47821/heroku_h7rf48jn';
     }
@@ -9,7 +11,7 @@ module.exports = function(mongoose) {
         connectionString = 'mongodb://localhost:27017/cs5610_webdev'
     }
 
-    mongoose.connect(connectionString);
+    mongoose.connect(connectionString, {useMongoClient: true});
     mongoose.Promise = require('q').Promise;
 
     var userModel = require("./user/user.model.server.js")(mongoose);
