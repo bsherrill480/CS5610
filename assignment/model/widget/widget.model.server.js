@@ -36,8 +36,22 @@ function reorderWidget(pageId, start, end) {
 }
 
 function deleteWidget(widgetId) {
-    return widgetModel
-        .remove({_id: widgetId});
+
+    widgetModel
+        .findOne({_id: widgetId})
+        .then(function (widget) {
+            var pageId = widget._page;
+            console.log("pageId: " + pageId);
+
+            pageModel
+                .deleteWidgetToPage(pageId, widgetId)
+                .then(function (resulte) {
+                    return widgetModel
+                        .remove({_id: widgetId});
+                });
+        });
+
+    return null;
 }
 
 function updateWidget(widgetId, widget) {

@@ -15,10 +15,11 @@ pageModel.deleteWidgetToPage = deleteWidgetToPage;
 module.exports = pageModel;
 
 function deleteWidgetToPage(pageId, widgetId) {
-    return pageId
+    return pageModel
         .findOne({_id: pageId})
         .then(function (page) {
             page.widgets.pull(widgetId);
+            // page.widgets.remove(widgetId);
             return page.save();
         })
 }

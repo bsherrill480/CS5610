@@ -16,6 +16,19 @@ module.exports = function(app){
     app.put('/api/page/:pid', updatePage);
     app.delete('/api/page/:pid', deletePage);
 
+    app.get('/api/test/:pid/:wgid', function (req, res) {
+        // var pid = req.pid;
+        var pid = "597c10734f45fca0fc6029cd";
+        // var wgid = req.wgid;
+        var wgid = "597c107e4f45fca0fc6029ce";
+
+        pageModel
+            .deleteWidgetToPage(pid, wgid)
+            .then(function (result) {
+                console.log(result);
+            });
+    });
+
 
     function updatePage(req, res) {
         var pid = req.params.pid;
