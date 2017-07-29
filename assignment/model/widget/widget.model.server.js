@@ -8,8 +8,32 @@ widgetModel.findAllwidgetsForPage = findAllwidgetsForPage;
 widgetModel.findWidgetById = findWidgetById;
 widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
+widgetModel.reorderWidget = reorderWidget;
 
 module.exports = widgetModel;
+
+function reorderWidget(pageId, start, end) {
+    return pageModel
+        .findPageById(pageId)
+        .then(
+            function (page) {
+
+                if (start && end) {
+                    // console.log("come into if condition");
+                    if (end >= page.widgets.length) {
+                        var k = end - page.widgets.length;
+                        while ((k--) + 1) {
+                            page.widgets.push(undefined);
+                        }
+                    }
+                    page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
+
+                    // console.log(page.widgets);
+                    return page.save();
+                }
+            }
+        )
+}
 
 function deleteWidget(widgetId) {
     return widgetModel

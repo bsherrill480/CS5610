@@ -47,7 +47,9 @@
                 Because browser get it before JS, and browser treats it as a little URL if
                 use src only, instead of ng-src.
                 -->
-
+                <div ng-switch-when="TEXT">
+                    {{widget}}
+                </div>
                 <div ng-switch-when="IMAGE">
                     <img ng-src="{{widget.url}}" width="{{widget.size}}"/>
                 </div>

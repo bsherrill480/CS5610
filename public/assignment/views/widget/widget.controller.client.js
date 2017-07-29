@@ -88,6 +88,12 @@
                     return;
                 }
             }
+            if (model.widgetType === 'TEXT') {
+                if (model.widgetText === null || model.widgetText === undefined) {
+                    model.createError = "Text is required for TEXT";
+                    return;
+                }
+            }
 
             var newWidget = {
                 name: model.widgetName,

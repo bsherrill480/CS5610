@@ -33,92 +33,26 @@ module.exports = function(app){
     app.put("/api/page/:pid/widget", widgetSort);
 
     function widgetSort (req, res) {
-
-
-        // get widgets by pageId
         var pageId = req.params.pid;
-        var pageWidgets = [];
-        for (w in widgets) {
-            var widget = widgets[w];
-            if (parseInt(widget.pageId) === parseInt(pageId)) {
-                pageWidgets.push(widget);
-            }
-        }
+
+
         // index1 and index2 are index in pageWidgets
         var index1 = req.query.initial;
         var index2 = req.query.final;
-        // get the index of the widget in widgets
-        var initial = widgets.indexOf(pageWidgets[index1]);
-        var final = widgets.indexOf(pageWidgets[index2]);
-        // reorder widgets
-        if (index1 && index2) {
-            // console.log("come into if condition");
-            if (final >= widgets.length) {
-                var k = final - widgets.length;
-                while ((k--) + 1) {
-                    widgets.push(undefined);
-                }
-            }
-            widgets.splice(final, 0, widgets.splice(initial, 1)[0]);
-            res.sendStatus(200); // for testing purposes
-            return;
-        }
-        res.status(404).send("Cannot reorder widgets");
+        // console.log("in service: " + index1 + " " + index2);
 
-        // for(var i in widgets){
-        //     var item = widgets[i];
-        //
-        //     console.log("wig: " + item.text);
-        //
-        // }
-        //
-        // var pageId = req.params.pid;
-        // var start = req.query.initial;
-        // var end = req.query.final;
-        // console.log("start sorting....." + start + "....." +end);
-        //
-        // // var widgetsArr = [];
-        // // for (wi in widgets) {
-        // //     var widget = widgets[wi];
-        // //     if (parseInt(widget.pageId) === parseInt(pageId)) {
-        // //         widgetsArr.push(widget);
-        // //     }
-        // // }
-        // //
-        // widgets = widgets.filter(function (el) {return el.pageId !== pageId;});
-        // //
-        // var item = widgets[start];
-        //
-        // if(start > end){
-        //     widgets.splice(end, 0, item);
-        //     widgets.splice(start, 1);
-        //     // widgets.splice(start, 1);
-        //     // widgets.splice(end, 0, item);
-        // }
-        // else{
-        //     // widgets.splice(end, 0, item);
-        //     // widgets.splice(start, 1);
-        //
-        //     widgets.splice(start, 1);
-        //     widgets.splice(end, 0, item);
-        // }
-        //
-        // for(var i in widgets){
-        //     var item = widgets[i];
-        //
-        //     console.log("wig: " + item.text);
-        //
-        // }
-        //
-        // //
-        // // var widgetToBeMoved = widgetsArr.splice(start, 1)[0];
-        // // widgetsArr.splice(end, 0, widgetToBeMoved);
-        // //
-        // // for (wi in widgetsArr) {
-        // //     widgets.push(widgetsArr[wi]);
-        // // }
-        // //
-        // // res.sendStatus(200);
+        widgetModel
+            .reorderWidget(pageId, index1, index2)
+            .then(
+                function (page) {
+                    // console.log("in service");
+                    // console.log(page.widgets);
+                    res.sendStatus(202);
+                },
+                function (error) {
+                    res.status(400).send("Cannot reorder widgets");
+                }
+            )
     }
 
 
