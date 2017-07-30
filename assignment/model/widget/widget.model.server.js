@@ -45,7 +45,7 @@ function deleteWidget(widgetId) {
 
             pageModel
                 .deleteWidgetToPage(pageId, widgetId)
-                .then(function (resulte) {
+                .then(function (result) {
                     return widgetModel
                         .remove({_id: widgetId});
                 });

@@ -80,9 +80,9 @@ module.exports = function(app){
 
         websiteModel
             .deleteWebsite(wid)
-            .then(function (status) {
-                res.json(status);
-            })
+            // .then(function (status) {
+            //     res.json(status);
+            // })
         // var wid = req.params.wid;
         //
         // for(var w in websites){

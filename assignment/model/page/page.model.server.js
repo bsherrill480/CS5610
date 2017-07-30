@@ -39,9 +39,21 @@ function updatePage(pageId, newPage) {
 }
 
 function deletePage(pageId) {
-    return pageModel
-        .remove({_id: pageId});
 
+    pageModel
+        .findOne({_id: pageId})
+        .then(function (page) {
+            var websiteId = page._website;
+            console.log("websiteId: " + websiteId);
+            websiteModel
+                .deletePage(websiteId, pageId)
+                .then(function (result) {
+                    return pageModel
+                        .remove({_id: pageId});
+                });
+        });
+
+    return null;
 }
 
 function findPageById(pageId) {

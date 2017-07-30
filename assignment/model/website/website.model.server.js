@@ -64,6 +64,19 @@ function findWebsitesByUser(userId) {
 }
 
 function deleteWebsite(websiteId) {
-    return websiteModel
-        .remove({_id: websiteId})
+
+    websiteModel
+        .findOne({_id: websiteId})
+        .then(function (website) {
+            var userId = website._user;
+            console.log("userId: " + userId);
+            userModel
+                .deleteWebsite(userId, websiteId)
+                .then(function (result) {
+                    return websiteModel
+                        .remove({_id: websiteId});
+                });
+        });
+
+    return null;
 }
