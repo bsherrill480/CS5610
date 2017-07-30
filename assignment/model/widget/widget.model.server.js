@@ -4,7 +4,7 @@ var widgetModel = mongoose.model('widgetModel', widgetSchema);
 var pageModel = require('../page/page.model.server');
 
 widgetModel.createWidget = createWidget;
-widgetModel.findAllwidgetsForPage = findAllwidgetsForPage;
+widgetModel.findAllWidgetsForPage = findAllWidgetsForPage;
 widgetModel.findWidgetById = findWidgetById;
 widgetModel.updateWidget = updateWidget;
 widgetModel.deleteWidget = deleteWidget;
@@ -74,11 +74,15 @@ function findWidgetById(widgetId) {
         .findOne({_id: widgetId})
 }
 
-function findAllwidgetsForPage(pageId) {
-    return widgetModel
-        .find({_page: pageId})
-        .populate('_page')
-        .exec();
+function findAllWidgetsForPage(pageId) {
+    return pageModel
+        .findPageById(pageId)
+        .populate('widgets')
+        .then(
+            function (page) {
+                return page.widgets;
+            }
+        )
 }
 
 function createWidget(pageId, widget) {

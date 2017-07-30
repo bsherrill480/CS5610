@@ -1,4 +1,5 @@
 var widgetModel = require('../model/widget/widget.model.server');
+var pageModel = require('../model/page/page.model.server');
 
 module.exports = function(app){
     var multer = require('multer'); // npm install multer --save
@@ -33,26 +34,45 @@ module.exports = function(app){
     app.put("/api/page/:pid/widget", widgetSort);
 
     function widgetSort (req, res) {
+        // get widgets by pageId
         var pageId = req.params.pid;
-
-
+        // var pageWidgets = [];
+        // for (w in widgets) {
+        //     var widget = widgets[w];
+        //     if (parseInt(widget.pageId) === parseInt(pageId)) {
+        //         pageWidgets.push(widget);
+        //         }
+        //     }
         // index1 and index2 are index in pageWidgets
         var index1 = req.query.initial;
         var index2 = req.query.final;
-        // console.log("in service: " + index1 + " " + index2);
-
+        // get the index of the widget in widgets
+        // var initial = widgets.indexOf(pageWidgets[index1]);
+        // var final = widgets.indexOf(pageWidgets[index2]);
         widgetModel
             .reorderWidget(pageId, index1, index2)
             .then(
                 function (page) {
-                    // console.log("in service");
-                    // console.log(page.widgets);
                     res.sendStatus(202);
                 },
                 function (error) {
                     res.status(400).send("Cannot reorder widgets");
                 }
             )
+        // reorder widgets
+            /*if (index1 && index2) {
+            // console.log("come into if condition");
+                if (final >= widgets.length) {
+                var k = final - widgets.length;
+                while ((k--) + 1) {
+                    widgets.push(undefined);
+                    }
+                }
+            widgets.splice(final, 0, widgets.splice(initial, 1)[0]);
+            res.sendStatus(200); // for testing purposes
+            return;
+            }
+        res.status(404).send("Cannot reorder widgets");*/
     }
 
 
@@ -96,7 +116,7 @@ module.exports = function(app){
 
     function findAllWidgetsForPage(req, res) {
         widgetModel
-            .findAllwidgetsForPage(req.params.pid)
+            .findAllWidgetsForPage(req.params.pid)
             .then(function (widgets) {
                 res.json(widgets);
             })
