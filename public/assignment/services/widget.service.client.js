@@ -92,7 +92,15 @@
         }
 
         function createTextInputWidget(widgetId, pageId, widget) {
-
+            return {
+                _id: widgetId,
+                widgetType: 'TEXT',
+                pageId: pageId,
+                text: widget.text,
+                rows: widget.rows,
+                placeholder: widget.placeholder,
+                formatted: widget.formatted
+            };
         }
 
         function createLinkWidget(widgetId, pageId, widget) {

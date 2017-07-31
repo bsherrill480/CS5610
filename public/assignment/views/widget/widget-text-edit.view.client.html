@@ -1,8 +1,58 @@
-Text
-<input ng-model="model.widget.text" class="form-control"/>
-Rows
-<input ng-model="model.widget.rows" class="form-control" type="number"/>
-Placeholder
-<input ng-model="model.widget.placeholder" class="form-control"/>
-Formatted
-<input ng-model="model.widget.formatted" type="checkbox"/>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid row">
+
+        <div class="navbar-text pull-left">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="cl-text-black cl-icon-padding">
+          <span class="glyphicon glyphicon-chevron-left">
+          </span>
+            </a>
+        </div>
+        <div class="navbar-text pull-right">
+            <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="cl-icon-padding cl-text-black">
+          <span class="glyphicon glyphicon-ok">
+          </span>
+            </a>
+        </div>
+        <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+            Widget Edit
+        </a>
+    </div>
+</nav>
+
+<div class="container rt-form-top-padding">
+    <label for="widget-text-name">Text</label>
+    <input ng-model="model.widget.text"
+           class="form-control"
+           type="text"
+           id="widget-text-name"/>
+
+    <label for="widget-text-Rows">Rows</label>
+    <input ng-model="model.widget.rows"
+           class="form-control"
+           type="number"
+           id="widget-text-Rows"/>
+
+    <label for="widget-text-placeholder">placeholder</label>
+    <input ng-model="model.widget.placeholder"
+           class="form-control"
+           type="text"
+           id="widget-text-placeholder"/>
+    <label for="widget-text-formatted">formatted</label>
+    <input ng-model="model.widget.formatted"
+           type="checkbox"
+           id="widget-text-formatted"/>
+    <div>
+        <a ng-click="model.deleteWidget()" class="btn btn-danger btn-block" id="widget-text-delete-btn">Delete</a>
+    </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid row">
+        <div class="pull-right navbar-text">
+
+            <a href="#!/user/{{model.uid}}" class="tv-icon-padding">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+
+        </div>
+    </div>
+</nav>

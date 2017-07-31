@@ -102,9 +102,9 @@
                 size: model.widgetSize,
                 width: model.widgetWidth,
                 url: model.widgetUrl,
-                placeholder: model.placeholder,
-                rows: model.rows,
-                formatted: model.formatted
+                placeholder: model.widgetPlaceholder,
+                rows: model.widgetRows,
+                formatted: model.widgetFormatted
             };
             // WidgetService.createWidget(model.pid, newWidget);
             // $location.url("/user/" + model.uid + "/website/" + model.wid + "/page/" + model.pid + "/widget");
