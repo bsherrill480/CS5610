@@ -19,7 +19,7 @@ var widgetSchema = mongoose.Schema({
         min : 0
     },
     height : {type: Number, default: 10},
-    rows : {type: Number, default: 0},
+    //rows : {type: Number, default: 0},
     size : {
         type : Number,
         default : 1
