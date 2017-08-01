@@ -37,7 +37,7 @@ function reorderWidget(pageId, start, end) {
 
 function deleteWidget(widgetId) {
 
-    widgetModel
+    return widgetModel
         .findOne({_id: widgetId})
         .then(function (widget) {
             var pageId = widget._page;
@@ -50,8 +50,6 @@ function deleteWidget(widgetId) {
                         .remove({_id: widgetId});
                 });
         });
-
-    return null;
 }
 
 function updateWidget(widgetId, widget) {

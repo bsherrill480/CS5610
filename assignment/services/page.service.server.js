@@ -125,6 +125,9 @@ module.exports = function(app){
         var pid = req.params.pid;
         pageModel
             .deletePage(pid)
+            .then(function (status) {
+                res.json(status);
+            })
             // .then(function (status) {
             //     res.json(status);
             // })

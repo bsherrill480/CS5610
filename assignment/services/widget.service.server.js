@@ -310,10 +310,10 @@ module.exports = function(app){
         var wgid = req.params.wgid;
 
         widgetModel
-            .deleteWidget(wgid);
-            /*.then(function (status) {
+            .deleteWidget(wgid)
+            .then(function (status) {
                 res.json(status);
-            })*/
+            })
         // var wgid = req.params.wgid;
         // for (wg in widgets) {
         //     if (parseInt(widgets[wg]._id) === parseInt(wgid)) {

@@ -65,7 +65,7 @@ function findWebsitesByUser(userId) {
 
 function deleteWebsite(websiteId) {
 
-    websiteModel
+    return websiteModel
         .findOne({_id: websiteId})
         .then(function (website) {
             var userId = website._user;
@@ -77,6 +77,4 @@ function deleteWebsite(websiteId) {
                         .remove({_id: websiteId});
                 });
         });
-
-    return null;
 }

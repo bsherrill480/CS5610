@@ -40,7 +40,7 @@ function updatePage(pageId, newPage) {
 
 function deletePage(pageId) {
 
-    pageModel
+    return pageModel
         .findOne({_id: pageId})
         .then(function (page) {
             var websiteId = page._website;
@@ -53,7 +53,6 @@ function deletePage(pageId) {
                 });
         });
 
-    return null;
 }
 
 function findPageById(pageId) {
