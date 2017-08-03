@@ -12,7 +12,8 @@
         function login(username, password) {
             // var user = UserService.findUserByCredentials(username, password);
             UserService
-                .findUserByCredentials(username, password)
+                // .findUserByCredentials(username, password)
+                .login(username, password)
                 .then(function (found) {
                 if (found !== null) {
                     $location.url("/user/" + found._id);

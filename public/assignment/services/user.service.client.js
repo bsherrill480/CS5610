@@ -16,6 +16,7 @@
             "findUserById": findUserById,
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
+            "login": login,
             "updateUser": updateUser,
             "deleteUser": deleteUser
         };
@@ -31,6 +32,18 @@
                 }
             }
             return users.reduce(getMaxId, 0).toString();
+        }
+
+        function login(username, password) {
+            var url = "/api/login";
+            var credentials = {
+                username: username,
+                password: password
+            };
+            return $http.post(url, credentials)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
         }
 
         function createUser(user) {

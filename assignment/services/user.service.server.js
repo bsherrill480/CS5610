@@ -1,5 +1,7 @@
 /*var users = require("./users.mock.json");*/
 var userModel = require("../model/user/user.model.server");
+var passport      = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(app){
     //
@@ -11,22 +13,41 @@ module.exports = function(app){
     //     {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi", email: "jose@neu.com"}
     // ];
 
-
-    // GET Calls.
-    //app.get('/api/user?username=username', findUserByUsername);
-    //app.get('/api/user?username=username&password=password', findUserByUsername);
     app.get('/api/user', findAllUsers);
-    // app.get('/api/user?username=username&password=password', findUserByCredentials);
     app.get('/api/user/:uid', findUserById);
-
-    // POST Calls.
     app.post('/api/user', createUsers);
-    //
-    // // PUT Calls.
     app.put('/api/user/:uid', updateUser);
-    //
-    // // DELETE Calls.
     app.delete('/api/user/:uid', deleteUser);
+
+    app.post  ('/api/login', passport.authenticate('local'), login);
+
+
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function localStrategy(username, password, done) {
+        //done is a callback, which chains several functions that can handle the same exact request.
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(user) {
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            );
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
 
     /*API implementation*/
     function findAllUsers(req, res) {
@@ -214,5 +235,22 @@ module.exports = function(app){
         //     }
         // }
         // res.sendStatus(404);
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
     }
 };
