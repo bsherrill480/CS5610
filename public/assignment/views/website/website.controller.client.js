@@ -7,10 +7,11 @@
 
     // WebsiteListController
 
-    function WebsiteListController($routeParams, WebsiteService) {
+    function WebsiteListController(currentUser, $routeParams, WebsiteService) {
         var model = this;
 
-        model.uid = $routeParams['uid'];
+        // model.uid = $routeParams['uid'];
+        model.uid = currentUser._id;
 
         function init() {
             // model.websites = WebsiteService.findWebsitesByUser(model.uid);
@@ -28,10 +29,11 @@
 
     // EditWebsiteController
 
-    function EditWebsiteController($routeParams, WebsiteService, $location) {
+    function EditWebsiteController(currentUser, $routeParams, WebsiteService, $location) {
         var model = this;
 
-        model.uid = $routeParams['uid'];
+        // model.uid = $routeParams['uid'];
+        model.uid = currentUser._id;
         model.wid = $routeParams['wid'];
         model.deleteWebsite= deleteWebsite;
         model.updateWebsite = updateWebsite;
@@ -61,7 +63,7 @@
                     model.message = "website update was successful";
                 })
                 .then(function () {
-                    $location.url("/user/" + model.uid + "/website")
+                    $location.url("/website")
                 });
         }
 
@@ -69,7 +71,7 @@
             WebsiteService
                 .deleteWebsite(model.wid)
                 .then(function () {
-                    $location.url("/user/" + model.uid + "/website")
+                    $location.url("/website")
                 });
             // WebsiteService.deleteWebsite(model.wid);
             // $location.url("/user/"+model.uid+"/website");
@@ -79,10 +81,11 @@
 
     // NewWebsiteController
 
-    function NewWebsiteController($routeParams, WebsiteService, $location) {
+    function NewWebsiteController(currentUser, $routeParams, WebsiteService, $location) {
         var model = this;
 
-        model.uid = $routeParams['uid'];
+        // model.uid = $routeParams['uid'];
+        model.uid = currentUser._id;
         model.createWebsite= createWebsite;
 
         function init() {
@@ -103,7 +106,7 @@
             return WebsiteService
                     .createWebsite(model.uid, website)
                     .then(function () {
-                        $location.url("/user/"+model.uid+"/website")
+                        $location.url("/website")
                     }
                 )
             // website.developerId = model.uid;

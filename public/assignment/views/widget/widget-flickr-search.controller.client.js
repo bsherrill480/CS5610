@@ -3,9 +3,10 @@
         .module('WebAppMaker')
         .controller('flickrController', flickrController);
 
-    function flickrController(flickrService,$routeParams) {
+    function flickrController(currentUser, flickrService,$routeParams) {
         var model = this;
-        model.uid = $routeParams.uid;
+        // model.uid = $routeParams.uid;
+        model.uid = currentUser._id;
         model.wid = $routeParams.wid;
         model.pid = $routeParams.pid;
         model.wgid = $routeParams.wgid;

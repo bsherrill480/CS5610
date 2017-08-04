@@ -7,10 +7,11 @@
         .controller("EditWidgetController", EditWidgetController);
 
 
-    function WidgetListController($sce,$routeParams, WidgetService) {
+    function WidgetListController(currentUser, $sce,$routeParams, WidgetService) {
         var model = this;
 
-        model.uid = $routeParams['uid'];
+        // model.uid = $routeParams['uid'];
+        model.uid = currentUser._id;
         model.wid = $routeParams['wid'];
         model.pid = $routeParams['pid'];
         model.wgid = $routeParams['wgid'];
@@ -47,9 +48,10 @@
 
     }
 
-    function NewWidgetController($routeParams, $timeout, WidgetService) {
+    function NewWidgetController(currentUser, $routeParams, $timeout, WidgetService) {
         var model = this;
-        model.uid = $routeParams.uid;
+        // model.uid = $routeParams.uid;
+        model.uid = currentUser._id;
         model.wid = $routeParams.wid;
         model.pid = $routeParams.pid;
         // model.widgets = WidgetService.findAllWidgets(model.pid);
@@ -60,9 +62,10 @@
             });
     }
 
-    function CreateWidgetController($routeParams, $location, WidgetService) {
+    function CreateWidgetController(currentUser, $routeParams, $location, WidgetService) {
         var model = this;
-        model.uid = $routeParams.uid;
+        // model.uid = $routeParams.uid;
+        model.uid = currentUser._id;
         model.wid = $routeParams.wid;
         model.pid = $routeParams.pid;
         model.widgetType = $routeParams.wtype;
@@ -108,18 +111,19 @@
             };
             // WidgetService.createWidget(model.pid, newWidget);
             // $location.url("/user/" + model.uid + "/website/" + model.wid + "/page/" + model.pid + "/widget");
-            $location.url("/user/" + model.uid + "/website/" + model.wid + "/page/" + model.pid + "/widget");
+            $location.url("/website/" + model.wid + "/page/" + model.pid + "/widget");
             WidgetService
                 .createWidget(model.pid, newWidget)
                 .then(function () {
-                    $location.url("/user/" + model.uid + "/website/" + model.wid + "/page/" + model.pid + "/widget");
+                    $location.url("/website/" + model.wid + "/page/" + model.pid + "/widget");
                 })
         }
     }
 
-    function EditWidgetController($routeParams, $location, WidgetService) {
+    function EditWidgetController(currentUser, $routeParams, $location, WidgetService) {
         var model = this;
-        model.uid = $routeParams.uid;
+        // model.uid = $routeParams.uid;
+        model.uid = currentUser._id;
         model.wid = $routeParams.wid;
         model.pid = $routeParams.pid;
         model.wgid = $routeParams.wgid;
@@ -168,7 +172,7 @@
             WidgetService
                 .updateWidget(model.wgid, latestData)
                 .then(function () {
-                    $location.url("/user/" + model.uid + "/website/" + model.wid + "/page/" + model.pid + "/widget");
+                    $location.url("/website/" + model.wid + "/page/" + model.pid + "/widget");
                 });
         }
 
@@ -179,7 +183,7 @@
             WidgetService
                 .deleteWidget(model.wgid)
                 .then(function () {
-                    $location.url("/user/" + model.uid + "/website/" + model.wid + "/page/" + model.pid + "/widget");
+                    $location.url("/website/" + model.wid + "/page/" + model.pid + "/widget");
                 });
         }
 

@@ -5,10 +5,11 @@
         .controller("NewPageController", NewPageController)
         .controller("EditPageController", EditPageController);
 
-    function PageListController($routeParams, PageService) {
+    function PageListController(currentUser, $routeParams, PageService) {
         var model = this;
 
-        model.uid = $routeParams['uid'];
+        // model.uid = $routeParams['uid'];
+        model.uid = currentUser._id;
         model.wid = $routeParams['wid'];
 
         function init() {
@@ -26,10 +27,11 @@
 
     // NewPageController
 
-    function NewPageController($routeParams, $location, PageService) {
+    function NewPageController(currentUser, $routeParams, $location, PageService) {
         var model = this;
 
-        model.uid = $routeParams['uid'];
+        // model.uid = $routeParams['uid'];
+        model.uid = currentUser._id;
         model.wid = $routeParams['wid'];
         model.createPage = createPage
 
@@ -40,7 +42,7 @@
             PageService
                 .createPage(model.wid,page)
                 .then(function () {
-                    $location.url("/user/" + model.uid + "/website/" + model.wid + "/page")
+                    $location.url("/website/" + model.wid + "/page")
                 })
         }
     }
@@ -48,10 +50,11 @@
     // EditPageController
 
 
-    function EditPageController($routeParams, $location, PageService) {
+    function EditPageController(currentUser, $routeParams, $location, PageService) {
         var model = this;
 
-        model.uid = $routeParams['uid'];
+        // model.uid = $routeParams['uid'];
+        model.uid = currentUser._id;
         model.wid = $routeParams['wid'];
         model.pid = $routeParams['pid'];
         model.deletePage= deletePage;
@@ -76,7 +79,7 @@
                     model.message = "page update was successful";
                 })
                 .then(function () {
-                    $location.url("/user/" + model.uid + "/website/" + model.wid + "/page");
+                    $location.url("/website/" + model.wid + "/page");
                 });
         }
 
@@ -84,7 +87,7 @@
             PageService
                 .deletePage(model.pid)
                 .then(function () {
-                    $location.url("/user/"+model.uid+"/website/"+model.wid+"/page")
+                    $location.url("/website/"+model.wid+"/page")
                 })
 
 
