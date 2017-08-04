@@ -20,6 +20,9 @@ module.exports = function(app){
     app.delete('/api/user/:uid', deleteUser);
 
     app.post  ('/api/login', passport.authenticate('local'), login);
+    app.get  ('/api/checkLoggedIn', checkLoggedIn);
+    app.post  ('/api/logout', logout);
+
 
 
 
@@ -42,6 +45,20 @@ module.exports = function(app){
                     if (err) { return done(err); }
                 }
             );
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
+
+    function checkLoggedIn(req, res) {
+        if(req.isAuthenticated()) {
+            res.json(req.user);
+        } else {
+            res.json('0');
+            console.log("Not Authenticated")
+        }
     }
 
     function login(req, res) {

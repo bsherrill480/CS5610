@@ -17,6 +17,8 @@
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
             "login": login,
+            "checkLoggedIn": checkLoggedIn,
+            "logout": logout,
             "updateUser": updateUser,
             "deleteUser": deleteUser
         };
@@ -32,6 +34,22 @@
                 }
             }
             return users.reduce(getMaxId, 0).toString();
+        }
+
+        function logout() {
+            var url = "/api/logout";
+            return $http.post(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
+        function checkLoggedIn() {
+            var url = "/api/checkLoggedIn";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
         function login(username, password) {

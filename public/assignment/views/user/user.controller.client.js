@@ -16,7 +16,7 @@
                 .login(username, password)
                 .then(function (found) {
                 if (found !== null) {
-                    $location.url("/user/" + found._id);
+                    $location.url("/profile");
                 } else {
                     model.error = "Username does not exist.";
                 }
@@ -93,18 +93,23 @@
         }
     }
 
-    function ProfileController($routeParams, $location, $timeout, UserService) {
+    function ProfileController(currentUser, $routeParams, $location, $timeout, UserService) {
         var model = this;
 
-        model.userId = $routeParams['uid'];
+        model.userId = currentUser._id;
+        model.user = currentUser;
+        // UserService
+        //     .findUserById(model.userId)
+        //     .then(renderUser, userError);
 
-        UserService
-            .findUserById(model.userId)
-            .then(renderUser, userError);
-
-        function renderUser(user){
-            model.user = user;
+        function init() {
+            //renderUser(currentUser);
         }
+        init();
+
+        // function renderUser(user){
+        //     model.user = user;
+        // }
 
         function userError() {
             model.error = "User not Found";
@@ -117,6 +122,7 @@
         // model.email = model.user.email;
         model.updateUser = updateUser;
         model.deleteUser = deleteUser;
+        model.logout = logout;
         // function updateUser() {
         //     var update_user = {
         //         _id: $routeParams.uid,
@@ -131,6 +137,14 @@
         //         model.updated = null;
         //     }, 3000);
         // }
+
+        function logout() {
+            UserService
+                .logout()
+                .then(function () {
+                    $location.url('/login');
+                })
+        }
 
         function updateUser(user) {
             UserService
