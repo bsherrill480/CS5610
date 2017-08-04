@@ -19,6 +19,7 @@
             "login": login,
             "checkLoggedIn": checkLoggedIn,
             "logout": logout,
+            "register": register,
             "updateUser": updateUser,
             "deleteUser": deleteUser
         };
@@ -39,6 +40,13 @@
         function logout() {
             var url = "/api/logout";
             return $http.post(url)
+                .then(function (response) {
+                    return response.data;
+                });
+
+        }function register(user) {
+            var url = "/api/register";
+            return $http.post(url, user)
                 .then(function (response) {
                     return response.data;
                 });

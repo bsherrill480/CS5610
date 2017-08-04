@@ -57,7 +57,7 @@
                             // _id: (new Date()).getTime() + ""
                         };
                          return UserService
-                            .createUser(user)
+                            .register(user)
                             // .then(
                             //     function (user) {
                             //         $location.url("/user/" + user._id);
@@ -69,7 +69,7 @@
                 )
                 .then(// after adding a return before UserService, then catch the promise here to avoid nesting construction and keep synchronize.
                     function (user) {
-                        $location.url("/user/" + user._id);
+                        $location.url("/profile");
                     }
                 );
             // if (user === null) {
