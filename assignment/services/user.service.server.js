@@ -21,6 +21,7 @@ module.exports = function(app){
 
     app.post  ('/api/login', passport.authenticate('local'), login);
     app.get  ('/api/checkLoggedIn', checkLoggedIn);
+    app.get  ('/api/checkAdmin', checkAdmin);
     app.post  ('/api/logout', logout);
     app.post  ('/api/register', register);
 
@@ -47,6 +48,8 @@ module.exports = function(app){
                 }
             );
     }
+
+
 
     function register(req, res) {
         var user = req.body;
@@ -76,6 +79,14 @@ module.exports = function(app){
         } else {
             res.json('0');
             console.log("Not Authenticated")
+        }
+    }
+
+    function checkAdmin(req, res) {
+        if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1 ) {
+            res.json(req.user);
+        } else {
+            res.json('0');
         }
     }
 
@@ -141,7 +152,6 @@ module.exports = function(app){
     function createUsers(req, res) {
 
         var user = req.body;
-
         userModel
             .createUser(user)
             .then(

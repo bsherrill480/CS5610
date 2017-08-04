@@ -18,6 +18,7 @@
             "findUserByCredentials": findUserByCredentials,
             "login": login,
             "checkLoggedIn": checkLoggedIn,
+            "checkAdmin": checkAdmin,
             "logout": logout,
             "register": register,
             "updateUser": updateUser,
@@ -36,6 +37,15 @@
             }
             return users.reduce(getMaxId, 0).toString();
         }
+
+        function checkAdmin() {
+            var url = "/api/checkAdmin";
+            return $http.get(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
 
         function logout() {
             var url = "/api/logout";

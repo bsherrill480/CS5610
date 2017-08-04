@@ -10,6 +10,12 @@
          controller: "LoginController",
          controllerAs: "model"
          })*/
+            .when('/admin', {
+                templateUrl : "views/user/admin.view.client.html",
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
             .when('/register', {
                 templateUrl : "views/user/register.view.client.html",
                 controller: "RegisterController",
@@ -143,6 +149,21 @@
                } else {
                    deferred.resolve(currentUser);
                }
+            });
+        return deferred.promise;
+    }
+
+    function checkAdmin($q, $location, UserService) {
+        var deferred = $q.defer();
+        UserService
+            .checkAdmin()
+            .then(function (currentUser) {
+                if(currentUser === '0'){
+                    deferred.resolve({});
+                    $location.url('/login');
+                } else {
+                    deferred.resolve(currentUser);
+                }
             });
         return deferred.promise;
     }
