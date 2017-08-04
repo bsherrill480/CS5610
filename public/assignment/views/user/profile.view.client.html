@@ -15,6 +15,11 @@
         <a class="cl-text-white navbar-brand cl-text-bold" href="#">
             Profile
         </a>
+        <a class="cl-text-white navbar-brand cl-text-bold"
+           ng-if="model.currentUser.roles.indexOf('ADMIN') > -1 "
+           href="#!/admin">
+            Admin
+        </a>
         <a ng-click="model.updateUser()" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-ok"></span>
         </a>

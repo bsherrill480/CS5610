@@ -95,7 +95,7 @@
 
     function ProfileController(currentUser, $routeParams, $location, $timeout, UserService) {
         var model = this;
-
+        model.currentUser = currentUser;
         model.userId = currentUser._id;
         model.user = currentUser;
         // UserService
