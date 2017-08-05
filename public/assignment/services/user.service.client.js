@@ -15,6 +15,7 @@
             "createUser": createUser,
             "findUserById": findUserById,
             "findUserByUsername": findUserByUsername,
+            "findAllUsers": findAllUsers,
             "findUserByCredentials": findUserByCredentials,
             "login": login,
             "checkLoggedIn": checkLoggedIn,
@@ -124,6 +125,21 @@
             // for (u in users){
             //     var user = users[u];
             //     if(user.username === username){
+            //         return user;
+            //     }
+            // }
+            // return null;
+        }
+
+        function findAllUsers(username, password) {
+            var url = "/api/user";
+            return $http.get(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // for (u in users){
+            //     var user = users[u];
+            //     if((user.username === username) && (user.password === password)){
             //         return user;
             //     }
             // }

@@ -16,6 +16,14 @@
                     currentUser: checkAdmin
                 }
             })
+            .when('/admin/users', {
+                templateUrl : "views/user/admin-users.view.client.html",
+                controller: 'adminUsersController',
+                controllerAs: 'model',
+                resolve: {
+                    currentUser: checkAdmin
+                }
+            })
             .when('/register', {
                 templateUrl : "views/user/register.view.client.html",
                 controller: "RegisterController",
