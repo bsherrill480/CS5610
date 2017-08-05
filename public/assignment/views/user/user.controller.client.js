@@ -121,7 +121,7 @@
         // model.lastName = model.user.lastName;
         // model.email = model.user.email;
         model.updateUser = updateUser;
-        model.deleteUser = deleteUser;
+        model.unregister = unregister;
         model.logout = logout;
         // function updateUser() {
         //     var update_user = {
@@ -154,9 +154,9 @@
                 })
         }
 
-        function deleteUser(user) {
+        function unregister() {
             UserService
-                .deleteUser(user._id)
+                .unregister()
                 .then(function () {
                     $location.url('/')
                 }),

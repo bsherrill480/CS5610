@@ -23,7 +23,8 @@
             "logout": logout,
             "register": register,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "unregister": unregister
         };
         return services;
 
@@ -176,6 +177,16 @@
 
         function deleteUser(userId) {
             var url = "/api/user/" + userId;
+            return $http.delete(url)
+                .then(function (response) {//unwrap the data in servers
+                    return response.data;
+                });
+            // var oldUser = findUserById(userId);
+            // var index = users.indexOf(oldUser);
+            // users.splice(index);
+        }
+        function unregister() {
+            var url = "/api/unregister";
             return $http.delete(url)
                 .then(function (response) {//unwrap the data in servers
                     return response.data;

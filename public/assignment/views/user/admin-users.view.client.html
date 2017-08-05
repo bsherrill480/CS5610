@@ -2,6 +2,7 @@
     <h1>Admin Users</h1>
     <ul class="list-group">
         <li ng-repeat="user in model.users" class="list-group-item">
+            <span ng-click="model.deleteUser(user)" class="glyphicon glyphicon-remove pull-right"></span>
             {{user.username}},{{user.firstName}},{{user.lastName}},{{user.email}},{{user.roles}},{{user.websites}}
         </li>
     </ul>

@@ -13,11 +13,12 @@ module.exports = function(app){
     //     {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi", email: "jose@neu.com"}
     // ];
 
-    app.get('/api/user', findAllUsers);
+    app.get('/api/user', isAdmin, findAllUsers);
     app.get('/api/user/:uid', findUserById);
     app.post('/api/user', createUsers);
     app.put('/api/user/:uid', updateUser);
-    app.delete('/api/user/:uid', deleteUser);
+    app.delete('/api/user/:uid', isAdmin, deleteUser);
+    app.delete('/api/unregister', unregister);
 
     app.post  ('/api/login', passport.authenticate('local'), login);
     app.get  ('/api/checkLoggedIn', checkLoggedIn);
@@ -87,6 +88,14 @@ module.exports = function(app){
             res.json(req.user);
         } else {
             res.json('0');
+        }
+    }
+
+    function isAdmin(req, res, next) {
+        if(req.isAuthenticated() && req.user.roles.indexOf('ADMIN') > -1 ) {
+            next();
+        } else {
+            res.sendStatus(401);
         }
     }
 
@@ -280,6 +289,15 @@ module.exports = function(app){
         //     }
         // }
         // res.sendStatus(404);
+    }
+
+    function unregister(req, res) {
+        userModel
+            .deleteUser(req.user._id)
+            .then(function (status) {
+                req.logout();
+                res.sendStatus(200);
+            });
     }
 
     function serializeUser(user, done) {
