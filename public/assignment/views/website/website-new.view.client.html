@@ -33,6 +33,8 @@
     </div>
 </nav>
 
+<div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
+
 <div class="contain-fluid">
     <div class="col-xs-4 hidden-xs verticalLine">
         <ul class="list-group cl-list-group-borderless">
@@ -42,6 +44,7 @@
             </li>
         </ul>
     </div>
+
 
     <div class="col-sm-8">
         <form>

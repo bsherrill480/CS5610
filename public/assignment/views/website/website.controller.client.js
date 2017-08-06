@@ -57,6 +57,10 @@
         }
 
         function updateWebsite(website) {
+            if (website.name === undefined || website.name === null || website.name === "") {
+                model.error = "Website Name cannot be empty.";
+                return;
+            }
             WebsiteService
                 .updateWebsite(website._id, website)
                 .then(function () {
@@ -102,7 +106,10 @@
         }
 
         function createWebsite (website) {
-
+            if (website.name === undefined || website.name === null || website.name === "") {
+                model.error = "Website Name cannot be empty.";
+                return;
+            }
             return WebsiteService
                     .createWebsite(model.uid, website)
                     .then(function () {

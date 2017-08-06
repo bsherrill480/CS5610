@@ -36,6 +36,10 @@
         model.createPage = createPage
 
         function createPage(page) {
+            if (page.name === undefined || page.name === null || page.name === "") {
+                model.error = "Page Name cannot be empty.";
+                return;
+            }
             // page.websiteId = model.wid;
             // PageService.createPage(model.wid,page);
             // $location.url("/user/" + model.uid + "/website/" + model.wid + "/page");
@@ -73,6 +77,10 @@
         }
 
         function updatePage(page) {
+            if (page.name === undefined || page.name === null || page.name === "") {
+                model.error = "Page Name cannot be empty.";
+                return;
+            }
             PageService
                 .updatePage(page._id, page)
                 .then(function () {

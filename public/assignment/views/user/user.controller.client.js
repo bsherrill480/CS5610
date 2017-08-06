@@ -10,6 +10,10 @@
         model.login = login;
 
         function login(username, password) {
+            if (username === undefined || username === null || username === "" || password === undefined || password === "") {
+                model.error = "Username and Passwords cannot be empty.";
+                return;
+            }
             // var user = UserService.findUserByCredentials(username, password);
             UserService
                 // .findUserByCredentials(username, password)
@@ -34,7 +38,7 @@
                 return;
             }
             if (password !== vpassword) {
-                model.error = "Password does not match.";
+                model.error = "Password and verify password must match.";
                 return;
             }
             // var user = UserService.findUserByUsername(username);
