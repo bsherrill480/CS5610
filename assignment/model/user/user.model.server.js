@@ -11,8 +11,12 @@ userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 userModel.addWebsite = addWebsite;
 userModel.deleteWebsite = deleteWebsite;
-
+userModel.findUserByGoogleId = findUserByGoogleId;
 module.exports = userModel;
+
+function findUserByGoogleId(googleId) {
+    return userModel.findOne({'google.id': googleId});
+}
 
 function createUser(user) {
     user.roles = ['USER'];

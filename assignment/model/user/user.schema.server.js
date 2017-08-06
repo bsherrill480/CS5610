@@ -5,7 +5,10 @@ var userSchema = mongoose.Schema({
     password : {type : String, required : true},
     firstName : String,
     lastName : String,
-
+    google: {
+        id:    String,
+        token: String
+    },
     roles: [{type: String, default: "USER", enum: ['USER', 'ADMIN']}],
 
     email : String,
