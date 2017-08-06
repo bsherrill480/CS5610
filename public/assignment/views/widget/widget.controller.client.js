@@ -73,6 +73,10 @@
         model.createError = null;
 
         function createWidget() {
+            if (model.widgetName === undefined || model.widgetName === null || model.widgetName === "") {
+                model.error = "Website Name cannot be empty.";
+                return;
+            }
             if (model.widgetType === 'IMAGE' || model.widgetType === 'YOUTUBE') {
                 if (model.widgetUrl === null || model.widgetUrl === undefined) {
                     model.createError = "Url is required for Image/Youtube";
@@ -153,6 +157,10 @@
         model.deleteWidget = deleteWidget;
 
         function editWidget() {
+            if (model.widget.name === undefined || model.widget.name === null || model.widget.name === "") {
+                model.error = "Website Name cannot be empty.";
+                return;
+            }
             WidgetService
                 .findWidgetById(model.wgid)
                 .then(function (widget) {
