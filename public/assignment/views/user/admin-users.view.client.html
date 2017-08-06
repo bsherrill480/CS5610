@@ -1,5 +1,17 @@
+<nav class="navbar navbar-fixed-top cl-blue-navbar">
+    <div class="container-fluid">
+        <p class="navbar-text pull-left">
+            <a href="#!/admin" class="navbar-link cl-text-white">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        </p>
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+            Admin Users
+        </a>
+    </div>
+</nav>
+
 <div class="container-fluid">
-    <h1>Admin Users</h1>
     <ul class="list-group">
         <li ng-repeat="user in model.users" class="list-group-item">
             <span ng-click="model.deleteUser(user)" class="glyphicon glyphicon-remove pull-right"></span>
@@ -7,3 +19,5 @@
         </li>
     </ul>
 </div>
+
+<div ng-include="'views/common/footer-blue.view.client.html'"></div>

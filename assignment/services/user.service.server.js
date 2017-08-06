@@ -45,7 +45,7 @@ module.exports = function(app){
     passport.use(new GoogleStrategy(googleConfig, googleStrategy));
 
     function googleStrategy(token, refreshToken, profile, done) {
-        //console.log(profile);
+        console.log(profile);
         userModel
             .findUserByGoogleId(profile.id)
             .then(
@@ -57,7 +57,7 @@ module.exports = function(app){
                         var emailParts = email.split("@");
                         var newGoogleUser = {
                             username:  emailParts[0],
-                            password: "0",
+                            password: profile.name.givenName,
                             firstName: profile.name.givenName,
                             lastName:  profile.name.familyName,
                             email:     email,
