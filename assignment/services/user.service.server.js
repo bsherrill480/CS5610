@@ -3,6 +3,7 @@ var userModel = require("../model/user/user.model.server");
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(app){
     //
@@ -89,13 +90,13 @@ module.exports = function(app){
     function localStrategy(username, password, done) {
         //done is a callback, which chains several functions that can handle the same exact request.
         userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    if (!user) {
-                        return done(null, false);
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
                     }
-                    return done(null, user);
+                    return done(null, false);
                 },
                 function(err) {
                     if (err) { return done(err); }
@@ -107,6 +108,7 @@ module.exports = function(app){
 
     function register(req, res) {
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         userModel
             .createUser(user)
             .then(
@@ -214,6 +216,7 @@ module.exports = function(app){
     function createUsers(req, res) {
 
         var user = req.body;
+        user.password = bcrypt.hashSync(user.password);
         userModel
             .createUser(user)
             .then(
