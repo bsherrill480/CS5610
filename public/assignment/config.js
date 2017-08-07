@@ -10,6 +10,12 @@
          controller: "LoginController",
          controllerAs: "model"
          })*/
+            .when('/home', {
+                templateUrl : "views/home/home.html",
+                // resolve: {
+                //     currentUser: checkLoggedIn
+                // }
+            })
             .when('/admin', {
                 templateUrl : "views/user/admin.view.client.html",
                 resolve: {
@@ -142,7 +148,7 @@
                 }
             })
             .otherwise({
-                redirectTo : "/login"
+                redirectTo : "/home"
             });
     }
 
